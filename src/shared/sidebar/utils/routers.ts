@@ -1,0 +1,60 @@
+import { APP_ROUTER } from '@/routers'
+import {
+  BarChartBig,
+  BriefcaseBusiness,
+  Contact,
+  Drumstick,
+  LayoutDashboard,
+  Settings,
+  ShoppingBag,
+  Store,
+  UserSearch
+} from 'lucide-react'
+
+export const routers = [
+  {
+    name: 'Dashboard',
+    path: APP_ROUTER.DASHBOARD,
+    Icon: BarChartBig
+  },
+  {
+    name: 'Cliente',
+    path: APP_ROUTER.CUSTOMER,
+    Icon: UserSearch
+  },
+  {
+    name: 'Empleado',
+    path: APP_ROUTER.EMPLOYEE,
+    Icon: BriefcaseBusiness
+  },
+  {
+    name: 'Categorias',
+    path: APP_ROUTER.CATEGORIES,
+    Icon: LayoutDashboard
+  },
+  {
+    name: 'Productos',
+    path: APP_ROUTER.PRODUCTS,
+    Icon: Drumstick
+  },
+  {
+    name: 'Compras',
+    path: APP_ROUTER.PURCHASES,
+    Icon: ShoppingBag
+  },
+  {
+    name: 'Usuarios',
+    path: APP_ROUTER.USERS,
+    Icon: Contact
+  },
+  {
+    name: 'Tiendas',
+    path: APP_ROUTER.STORES,
+    Icon: Store
+  },
+  {
+    name: 'Configuraciones',
+    path: APP_ROUTER.SETTINGS,
+    Icon: Settings
+  }
+]
