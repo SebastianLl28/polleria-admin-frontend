@@ -1,5 +1,5 @@
-import { getAllCustomer } from '@/services/customer.service'
-import { useQuery } from '@tanstack/react-query'
+import { getAllCustomer, postCustomer } from '@/services/customer.service'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 export const useGetAllCustomer = () =>
   useQuery({
@@ -7,3 +7,16 @@ export const useGetAllCustomer = () =>
     queryFn: getAllCustomer,
     refetchOnWindowFocus: false
   })
+
+export const usePostCustomer = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationKey: ['customer'],
+    mutationFn: postCustomer,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['customer']
+      })
+    }
+  })
+}

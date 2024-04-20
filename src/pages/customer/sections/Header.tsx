@@ -6,7 +6,8 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { FolderUp, Grip, Plus } from 'lucide-react'
+import { FolderUp, Grip } from 'lucide-react'
+import AddCustomer from '../alerts/AddCustomer'
 
 const Header = () => {
   return (
@@ -42,10 +43,7 @@ const Header = () => {
           <FolderUp size={16} />
           <span>Exportar</span>
         </Button>
-        <Button className='space-x-2 text-white' type='button'>
-          <Plus size={16} />
-          <span>Crear Cliente</span>
-        </Button>
+        <AddCustomer />
       </div>
     </section>
   )

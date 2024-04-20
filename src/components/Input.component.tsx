@@ -8,13 +8,21 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string
   hookForm: UseFormRegisterReturn<string>
   error?: FieldError | undefined
+  classNameContainer?: string
 }
 
-const Input = ({ label, hookForm, error, className, ...args }: InputProps) => {
+const Input = ({
+  label,
+  hookForm,
+  error,
+  className,
+  classNameContainer,
+  ...args
+}: InputProps) => {
   const id = useId()
 
   return (
-    <div className='relative mb-2 w-full pb-px'>
+    <div className={cn('relative mb-2 w-full pb-px', classNameContainer)}>
       {label ? (
         <Label htmlFor={id} className={`font-semibold ${error ? 'text-red-500' : ''}`}>
           {label}
