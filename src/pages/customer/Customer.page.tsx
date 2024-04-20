@@ -67,11 +67,30 @@ const CustomerPage = () => {
     }
   ]
 
+  const handleEdit = (id: string) => {
+    alert('Edit ' + id)
+  }
+
+  const handleDelete = (id: string) => {
+    alert('Delete ' + id)
+  }
+
+  const actions = [
+    {
+      name: 'Editar',
+      action: handleEdit
+    },
+    {
+      name: 'Eliminar',
+      action: handleDelete
+    }
+  ]
+
   return (
     <main className='space-y-12 p-12'>
       <Header />
       {!isLoading && isSuccess && data.content.length > 0 && (
-        <Table header={headers} data={data} />
+        <Table header={headers} data={data} actions={actions} />
       )}
     </main>
   )

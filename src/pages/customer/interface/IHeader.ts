@@ -2,6 +2,7 @@
 export interface ITable {
   header: IHeader[]
   data: any
+  actions: IActions[]
 }
 
 export interface IHeader {
@@ -11,4 +12,9 @@ export interface IHeader {
   render?: (value: boolean) => JSX.Element
   size: number
   action?: (item: string) => void
+}
+
+export interface IActions {
+  name: string
+  action: (id: any) => void
 }

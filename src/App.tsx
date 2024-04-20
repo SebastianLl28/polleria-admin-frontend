@@ -17,9 +17,7 @@ const ConfigPage = lazy(() => import('./pages/config/Config.page'))
 const App = () => {
   return (
     <BrowserRouter>
-      {/* loader */}
       <Suspense fallback={<div>Loading...</div>}>
-        {/* routes */}
         <Routes>
           <Route path={APP_ROUTER.LOGIN} element={<LoginPage />} />
           <Route element={<MainLayout />}>
