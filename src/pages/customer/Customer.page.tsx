@@ -2,15 +2,14 @@ import { useGetAllCustomer } from '@/hooks/customer.hook'
 import { IHeader } from './interface/IHeader'
 import Header from './sections/Header'
 import Table from './table/Table'
+import useDelete from './hook/useDelete'
+import { Customer } from '@/model/Customer.model'
 
 const handleClick = (item: string) => {
   console.log(item)
 }
 
 const CustomerPage = () => {
-  //TODO: en el header meter, lo que va a ir en la data
-  //TODO: si o si tengo que capturar el id, asi que no sería ocultarlo
-
   const { data, isLoading, isSuccess } = useGetAllCustomer()
   const headers: IHeader[] = [
     {
@@ -35,7 +34,7 @@ const CustomerPage = () => {
     {
       key: 'email',
       label: 'Correo',
-      overflow: 'hidden',
+      overflow: 'visible',
       size: 3
     },
     {
@@ -67,13 +66,11 @@ const CustomerPage = () => {
     }
   ]
 
-  const handleEdit = (id: string) => {
-    alert('Edit ' + id)
+  const handleEdit = (customer: Customer) => {
+    alert('Edit ' + customer.id)
   }
 
-  const handleDelete = (id: string) => {
-    alert('Delete ' + id)
-  }
+  const { DeleteAlert, handleDelete } = useDelete()
 
   const actions = [
     {
@@ -92,6 +89,7 @@ const CustomerPage = () => {
       {!isLoading && isSuccess && data.content.length > 0 && (
         <Table header={headers} data={data} actions={actions} />
       )}
+      <DeleteAlert />
     </main>
   )
 }

@@ -40,13 +40,14 @@ const BodyTable = ({ header, data, actions }: ITable) => {
               <PopoverContent className='w-min'>
                 <div className='flex flex-col space-y-2'>
                   {actions.map((action, actionIndex) => (
-                    <button
+                    <Button
                       key={actionIndex}
+                      variant='ghost'
                       className='text-left text-sm'
-                      onClick={() => action.action(item.id)}
+                      onClick={() => action.action(item)}
                     >
                       {action.name}
-                    </button>
+                    </Button>
                   ))}
                 </div>
               </PopoverContent>
