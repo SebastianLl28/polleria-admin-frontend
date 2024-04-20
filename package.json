@@ -21,6 +21,7 @@
     "@tanstack/react-query": "^5.29.2",
     "@tanstack/react-query-devtools": "^5.29.2",
     "@uidotdev/usehooks": "^2.4.1",
+    "app-admin": "link:",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

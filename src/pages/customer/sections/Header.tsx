@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <section className='flex w-full items-center justify-between'>
       <div className='flex space-x-4'>
-        <h2 className='text-4xl font-bold'>Ususarios</h2>
+        <h2 className='text-4xl font-bold'>Clientes</h2>
         <Button variant='ghost' className='relative top-2 mt-auto space-x-2 px-4'>
           <Grip size={16} />
           <span className=''>Card View</span>
@@ -44,7 +44,7 @@ const Header = () => {
         </Button>
         <Button className='space-x-2 text-white' type='button'>
           <Plus size={16} />
-          <span>Crear usuario</span>
+          <span>Crear Cliente</span>
         </Button>
       </div>
     </section>

@@ -1,33 +1,7 @@
+import { useGetAllCustomer } from '@/hooks/customer.hook'
 import { IHeader } from './interface/IHeader'
 import Header from './sections/Header'
 import Table from './table/Table'
-
-const data = [
-  {
-    id: '1',
-    name: 'John',
-    lastname: 'Doe',
-    email: 'llamucasebas@gmail.com',
-    birthdate: '1990-01-01',
-    status: true
-  },
-  {
-    id: '2',
-    name: 'Jane',
-    lastname: 'Doe',
-    email: 'janeDoegmail.com',
-    birthdate: '1990-01-01',
-    status: false
-  },
-  {
-    id: '3',
-    name: 'Jorge',
-    lastname: 'Doe',
-    email: 'jorgeDoegmail.com',
-    birthdate: '1990-01-01',
-    status: true
-  }
-]
 
 const handleClick = (item: string) => {
   console.log(item)
@@ -36,6 +10,8 @@ const handleClick = (item: string) => {
 const CustomerPage = () => {
   //TODO: en el header meter, lo que va a ir en la data
   //TODO: si o si tengo que capturar el id, asi que no sería ocultarlo
+
+  const { data, isLoading, isSuccess } = useGetAllCustomer()
   const headers: IHeader[] = [
     {
       key: 'id',
@@ -58,7 +34,13 @@ const CustomerPage = () => {
     },
     {
       key: 'email',
-      label: 'Email',
+      label: 'Correo',
+      overflow: 'hidden',
+      size: 3
+    },
+    {
+      key: 'password',
+      label: 'Contraseña',
       overflow: 'hidden',
       size: 3
     },
@@ -88,7 +70,9 @@ const CustomerPage = () => {
   return (
     <main className='space-y-12 p-12'>
       <Header />
-      <Table header={headers} data={data} />
+      {!isLoading && isSuccess && data.content.length > 0 && (
+        <Table header={headers} data={data} />
+      )}
     </main>
   )
 }

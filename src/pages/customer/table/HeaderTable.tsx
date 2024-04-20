@@ -9,11 +9,17 @@ const Header = ({ header }: HeaderProps) => {
     <div
       className='grid w-full rounded-md bg-slate-200 font-semibold shadow'
       style={{
-        gridTemplateColumns: header.map(item => `${item.size}fr`).join(' ')
+        gridTemplateColumns: header
+          .filter(item => item.overflow === 'visible')
+          .map(item => `${item.size}fr`)
+          .join(' ')
       }}
     >
       {header.map((item, index) => (
-        <div key={index} className='py-2 text-center text-lg'>
+        <div
+          key={index}
+          className={`py-2 text-center text-lg ${item.overflow === 'hidden' ? 'hidden' : ''}`}
+        >
           {item.label}
         </div>
       ))}
