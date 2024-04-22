@@ -3,7 +3,7 @@ import { IHeader } from './interface/IHeader'
 import Header from './sections/Header'
 import Table from './table/Table'
 import useDelete from './hook/useDelete'
-import { Customer } from '@/model/Customer.model'
+import useDialog from './hook/useDialog'
 
 const handleClick = (item: string) => {
   console.log(item)
@@ -66,16 +66,14 @@ const CustomerPage = () => {
     }
   ]
 
-  const handleEdit = (customer: Customer) => {
-    alert('Edit ' + customer.id)
-  }
+  const { openDialogEdit, ModalCustomer } = useDialog()
 
   const { DeleteAlert, handleDelete } = useDelete()
 
   const actions = [
     {
       name: 'Editar',
-      action: handleEdit
+      action: openDialogEdit
     },
     {
       name: 'Eliminar',
@@ -90,6 +88,7 @@ const CustomerPage = () => {
         <Table header={headers} data={data} actions={actions} />
       )}
       <DeleteAlert />
+      <ModalCustomer />
     </main>
   )
 }

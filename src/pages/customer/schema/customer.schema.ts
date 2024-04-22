@@ -1,7 +1,7 @@
 import { loginSchema } from '@/pages/login/schema/login.schema'
 import z from 'zod'
 
-export const addCustomerSchema = loginSchema.extend({
+export const addCustomerSchema = z.object({
   name: z
     .string({
       required_error: 'El nombre es requerido'
@@ -14,8 +14,17 @@ export const addCustomerSchema = loginSchema.extend({
     })
     .min(1, 'El apellido es requerido')
     .max(100, 'El apellido debe tener menos de 100 caracteres'),
-  birthdate: z.date({
-    required_error: 'La fecha de nacimiento es requerida'
+  birthdate: z
+    .string({
+      required_error: 'La fecha de nacimiento es requerida'
+    })
+    .datetime({
+      message: 'La fecha de nacimiento no es válida'
+    }),
+  email: loginSchema.shape.email,
+  status: z.boolean(),
+  password: z.string({
+    required_error: 'La contraseña es requerida'
   })
 })
 

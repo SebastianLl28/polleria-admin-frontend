@@ -9,3 +9,9 @@ export const getAllCustomer = async () => {
 export const postCustomer = async (customer: Omit<Customer, 'status' | 'id'>) => {
   return await baseApi.post<Customer>('/customers', customer).then(res => res.data)
 }
+
+export const putCustomer = async (customer: Customer) => {
+  return await baseApi
+    .put<Customer>(`/customers/${customer.id}`, customer)
+    .then(res => res.data)
+}
