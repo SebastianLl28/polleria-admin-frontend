@@ -36,10 +36,9 @@ const DeleteCustomer = ({
     <AlertDialog onOpenChange={setIsOpen} open={isOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Estás seguro de eliminar a este usuario?</AlertDialogTitle>
+          <AlertDialogTitle>¿Estás seguro de desactivar a este usuario?</AlertDialogTitle>
           <AlertDialogDescription>
-            Esta acción no se puede deshacer. Esto eliminará permanentemente su cuenta y
-            eliminará sus datos de nuestros servidores.
+            Esta acción hará que el usuario no pueda acceder a la plataforma.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

@@ -6,11 +6,11 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { FolderUp, Grip, Plus } from 'lucide-react'
+import { FolderUp, Grip } from 'lucide-react'
 import useDialog from '../hook/useDialog'
 
 const Header = () => {
-  const { ModalCustomer, openDialog } = useDialog()
+  const { ModalCustomer } = useDialog()
 
   return (
     <section className='flex w-full items-center justify-between'>
@@ -44,10 +44,6 @@ const Header = () => {
         <Button className='space-x-2' type='button' variant='secondary'>
           <FolderUp size={16} />
           <span>Exportar</span>
-        </Button>
-        <Button className='space-x-2 text-white' type='button' onClick={openDialog}>
-          <Plus size={16} />
-          <span>Crear Cliente</span>
         </Button>
       </div>
       <ModalCustomer />

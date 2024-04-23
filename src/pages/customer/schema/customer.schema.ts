@@ -14,13 +14,7 @@ export const addCustomerSchema = z.object({
     })
     .min(1, 'El apellido es requerido')
     .max(100, 'El apellido debe tener menos de 100 caracteres'),
-  birthdate: z
-    .string({
-      required_error: 'La fecha de nacimiento es requerida'
-    })
-    .datetime({
-      message: 'La fecha de nacimiento no es válida'
-    }),
+  birthdate: z.string(),
   email: loginSchema.shape.email,
   status: z.boolean(),
   password: z.string({

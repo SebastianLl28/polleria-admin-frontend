@@ -17,4 +17,13 @@ export interface IHeader {
 export interface IActions {
   name: string
   action: (id: any) => void
+  variant?:
+    | 'destructive'
+    | 'link'
+    | 'default'
+    | 'outline'
+    | 'secondary'
+    | 'ghost'
+    | null
+    | undefined
 }

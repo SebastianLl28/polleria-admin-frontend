@@ -1,5 +1,5 @@
 import { useGetAllCustomer } from '@/hooks/customer.hook'
-import { IHeader } from './interface/IHeader'
+import { IActions, IHeader } from './interface/IHeader'
 import Header from './sections/Header'
 import Table from './table/Table'
 import useDelete from './hook/useDelete'
@@ -66,18 +66,18 @@ const CustomerPage = () => {
     }
   ]
 
-  const { openDialogEdit, ModalCustomer } = useDialog()
-
   const { DeleteAlert, handleDelete } = useDelete()
+  const { ModalCustomer, openDialog } = useDialog()
 
-  const actions = [
+  const actions: IActions[] = [
     {
-      name: 'Editar',
-      action: openDialogEdit
+      name: 'Ver',
+      action: openDialog
     },
     {
-      name: 'Eliminar',
-      action: handleDelete
+      name: 'Desactivar',
+      action: handleDelete,
+      variant: 'destructive'
     }
   ]
 

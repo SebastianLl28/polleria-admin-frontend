@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import DeleteCustomer from '../alerts/DeleteCustomer'
 import { Customer } from '@/model/Customer.model'
+import { usePutCustomer } from '@/hooks/customer.hook'
 
 const useDelete = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -11,8 +12,11 @@ const useDelete = () => {
     setIsOpen(true)
   }
 
-  const actionDelete = (customer: Customer) => {
-    console.log('Delete customer', customer)
+  const { mutate } = usePutCustomer()
+
+  const actionDelete = (customer: Omit<Customer, 'password'>) => {
+    const data = { ...customer, status: false }
+    mutate(data)
   }
 
   const DeleteAlert = () => {

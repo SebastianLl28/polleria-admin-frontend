@@ -42,7 +42,7 @@ const BodyTable = ({ header, data, actions }: ITable) => {
                   {actions.map((action, actionIndex) => (
                     <Button
                       key={actionIndex}
-                      variant='ghost'
+                      variant={action.variant || 'ghost'}
                       className='text-left text-sm'
                       onClick={() => action.action(item)}
                     >
