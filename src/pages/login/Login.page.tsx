@@ -28,10 +28,10 @@ const LoginPage = () => {
         <h2 className='mb-3 text-center text-3xl font-bold'>Iniciar Sesión</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
-            label='Correo Electrónico'
+            label='Nombre de usuario'
             type='text'
-            hookForm={register('email')}
-            error={errors.email}
+            hookForm={register('userName')}
+            error={errors.userName}
           />
           <Input
             label='Contraseña'

@@ -1,7 +1,7 @@
 import z from 'zod'
 
 export const loginSchema = z.object({
-  email: z
+  userName: z
     .string({
       required_error: 'El correo electrónico es requerido'
     })
