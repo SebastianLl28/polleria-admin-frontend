@@ -86,6 +86,10 @@ const Body = () => {
     {
       name: 'Ver Detalles',
       action: (product: Product) => openModal(product.id)
+    },
+    {
+      name: 'Agregar Stock',
+      action: (product: Product) => console.log('Agregar Stock', product.id)
     }
   ]
 
