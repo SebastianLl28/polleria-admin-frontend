@@ -9,7 +9,6 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useGetProductById } from '@/hooks/products.hook'
 import { Building, Star } from 'lucide-react'
-import { useEffect } from 'react'
 
 interface ProductModalProps {
   idProduct: number | null
@@ -19,12 +18,6 @@ interface ProductModalProps {
 
 const ProductModal = ({ idProduct, isOpen, closeModal }: ProductModalProps) => {
   const { data, isLoading, isSuccess } = useGetProductById(idProduct)
-
-  useEffect(() => {
-    if (data) {
-      console.log(data)
-    }
-  }, [data])
 
   return (
     <AlertDialog open={isOpen}>
