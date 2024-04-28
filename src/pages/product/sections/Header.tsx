@@ -7,8 +7,11 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { FolderUp, Grip, Plus } from 'lucide-react'
+import useModalForm from '../hooks/useModalForm'
 
 const Header = () => {
+  const { Modal, handleOpen } = useModalForm()
+
   return (
     <header className='flex w-full items-center justify-between'>
       <div className='flex space-x-4'>
@@ -43,12 +46,13 @@ const Header = () => {
             <FolderUp size={16} />
             <span>Exportar</span>
           </Button>
-          <Button className='space-x-2'>
+          <Button className='space-x-2' onClick={() => handleOpen(null)}>
             <Plus size={16} />
             <span>Crear</span>
           </Button>
         </div>
       </div>
+      <Modal />
     </header>
   )
 }
