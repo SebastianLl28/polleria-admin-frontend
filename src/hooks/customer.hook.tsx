@@ -1,5 +1,6 @@
 import { getAllCustomer, postCustomer, putCustomer } from '@/services/customer.service'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
 
 export const useGetAllCustomer = () =>
   useQuery({
@@ -30,6 +31,9 @@ export const usePutCustomer = () => {
       queryClient.invalidateQueries({
         queryKey: ['customer']
       })
+    },
+    onError: () => {
+      toast.error('Error al atualizar el cliente. Intente nuevamente.')
     }
   })
 }

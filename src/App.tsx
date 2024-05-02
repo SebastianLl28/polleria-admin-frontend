@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import MainLayout from './layouts/MainLayout.layout'
 import { APP_ROUTER } from './routers'
+import { Toaster } from 'sonner'
 
 const LoginPage = lazy(() => import('./pages/login/Login.page'))
 const DashboardPage = lazy(() => import('./pages/dashboard/Dashboard.page'))
@@ -33,6 +34,7 @@ const App = () => {
           </Route>
         </Routes>
       </Suspense>
+      <Toaster position='bottom-right' expand richColors />
     </BrowserRouter>
   )
 }
