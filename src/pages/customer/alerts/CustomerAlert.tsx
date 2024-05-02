@@ -31,7 +31,7 @@ const CustomerAlert = ({ isOpen, closeDialog, customer }: AddCustomerProps) => {
       birthdate: '2021-09-01',
       email: customer?.email || '',
       password: customer?.password || '',
-      status: customer?.status || false
+      status: customer?.status || 'ACTIVE'
     }
   })
 
@@ -94,13 +94,19 @@ const CustomerAlert = ({ isOpen, closeDialog, customer }: AddCustomerProps) => {
           <div className={`mb-2 flex items-center gap-4 ${!customer ? 'hidden' : ''}`}>
             <Label className='pb-1'>
               Estado:{' '}
-              {customer?.status ? (
+              {customer?.status === 'ACTIVE' && (
                 <span className='rounded-md bg-green-500 px-2 py-1 text-white'>
                   Activo
                 </span>
-              ) : (
+              )}
+              {customer?.status === 'BLOCKED' && (
                 <span className='rounded-md bg-destructive px-2 py-1 text-white'>
                   Inactivo
+                </span>
+              )}
+              {customer?.status === 'UNVERIFIED' && (
+                <span className='rounded-md bg-yellow-500 px-2 py-1 text-white'>
+                  No verificado
                 </span>
               )}
             </Label>

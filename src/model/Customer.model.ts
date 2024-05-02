@@ -5,5 +5,5 @@ export interface Customer {
   email: string
   password: string
   birthdate: string
-  status: boolean
+  status: 'UNVERIFIED' | 'ACTIVE' | 'BLOCKED'
 }

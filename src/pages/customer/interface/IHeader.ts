@@ -9,7 +9,7 @@ export interface IHeader {
   key: string
   label: string
   overflow: 'hidden' | 'visible'
-  render?: (value: boolean) => JSX.Element
+  render?: (value: any) => JSX.Element
   size: number
   action?: (item: string) => void
 }

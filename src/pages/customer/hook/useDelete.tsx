@@ -15,7 +15,7 @@ const useDelete = () => {
   const { mutate } = usePutCustomer()
 
   const actionDelete = (customer: Omit<Customer, 'password'>) => {
-    const data = { ...customer, status: false }
+    const data = { ...customer, status: 'BLOCKED' } as Omit<Customer, 'password'>
     mutate(data)
   }
 

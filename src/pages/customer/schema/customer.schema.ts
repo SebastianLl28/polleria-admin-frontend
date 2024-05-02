@@ -1,4 +1,3 @@
-import { loginSchema } from '@/pages/login/schema/login.schema'
 import z from 'zod'
 
 export const addCustomerSchema = z.object({
@@ -15,8 +14,8 @@ export const addCustomerSchema = z.object({
     .min(1, 'El apellido es requerido')
     .max(100, 'El apellido debe tener menos de 100 caracteres'),
   birthdate: z.string(),
-  email: loginSchema.shape.email,
-  status: z.boolean(),
+  email: z.string().email('El correo no es válido'),
+  status: z.enum(['UNVERIFIED', 'ACTIVE', 'BLOCKED']),
   password: z.string({
     required_error: 'La contraseña es requerida'
   })

@@ -53,12 +53,14 @@ const CustomerPage = () => {
       key: 'status',
       label: 'Estado',
       overflow: 'visible',
-      render: (value: boolean) => {
+      render: (value: string) => {
         return (
           <span
-            className={`rounded-md px-2 py-1 text-white ${value ? 'bg-green-500' : 'bg-destructive'}`}
+            className={`rounded-md px-2 py-1 text-white ${value === 'ACTIVE' && 'bg-green-500'} ${value === 'UNVERIFIED' && 'bg-yellow-500'} ${value === 'BLOCKED' && 'bg-red-500'}`}
           >
-            {value ? 'Activo' : 'Inactivo'}
+            {value === 'ACTIVE' && 'Activo'}
+            {value === 'BLOCKED' && 'Inactivo'}
+            {value === 'UNVERIFIED' && 'No verificado'}
           </span>
         )
       },

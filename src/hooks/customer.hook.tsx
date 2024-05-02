@@ -31,6 +31,7 @@ export const usePutCustomer = () => {
       queryClient.invalidateQueries({
         queryKey: ['customer']
       })
+      toast.success('Cliente actualizado correctamente.')
     },
     onError: () => {
       toast.error('Error al atualizar el cliente. Intente nuevamente.')
