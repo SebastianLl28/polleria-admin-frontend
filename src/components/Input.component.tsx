@@ -33,7 +33,7 @@ const Input = ({
         {...hookForm}
         {...args}
         className={cn(
-          'mb-4 mt-1 w-full rounded border',
+          'mb-4 mt-1 w-full rounded border bg-white',
           className,
           error
             ? 'border-red-500 focus:outline-red-500 focus-visible:outline-red-500'

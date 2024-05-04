@@ -1,5 +1,6 @@
-import { getAllProducts, getProductById } from '@/services/product.service'
-import { useQuery } from '@tanstack/react-query'
+import { getAllProducts, getProductById, postProduct } from '@/services/product.service'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
 
 export const useGetAllProducts = () =>
   useQuery({
@@ -19,3 +20,18 @@ export const useGetProductById = (id: number | null) =>
     refetchOnWindowFocus: false,
     enabled: !!id
   })
+
+export const usePostProduct = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationKey: ['postProducts'],
+    mutationFn: postProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products'] })
+      toast.success('El producto se creo correctamente')
+    },
+    onError: () => {
+      toast.error('Error al crear el producto')
+    }
+  })
+}

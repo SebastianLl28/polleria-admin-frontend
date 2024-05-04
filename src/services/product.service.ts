@@ -16,3 +16,9 @@ interface ProductDetail extends Product {
 export const getProductById = async (id: number) => {
   return await baseApi.get<ProductDetail>(`/products/${id}`).then(res => res.data)
 }
+
+export const postProduct = async (
+  product: Omit<Product, 'status' | 'valoration' | 'id'>
+) => {
+  return await baseApi.post<Product>('/products', product).then(res => res.data)
+}
