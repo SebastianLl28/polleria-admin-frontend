@@ -20,13 +20,13 @@ const Aside = () => {
   return (
     <>
       <p className='mb-2 text-sm'>Personal</p>
-      <ul className='space-y-2'>
+      <ul className='select-none space-y-2'>
         {asideList.map(item => (
           <li key={item.id}>
             <NavLink
               to={item.link}
               className={({ isActive }) =>
-                `flex w-full items-center gap-1 rounded-md px-3 py-1 font-semibold hover:bg-slate-200 hover:text-black ${isActive ? 'bg-slate-200 text-black' : ''}`
+                `flex w-full items-center gap-1.5 rounded-md px-3 py-2 font-semibold hover:bg-slate-200 hover:text-black ${isActive ? 'bg-slate-200 text-black' : ''}`
               }
             >
               {item.icon}

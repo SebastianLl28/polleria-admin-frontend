@@ -9,6 +9,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   hookForm: UseFormRegisterReturn<string>
   error?: FieldError | undefined
   classNameContainer?: string
+  eye?: boolean
 }
 
 const Input = ({

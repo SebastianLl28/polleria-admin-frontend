@@ -3,8 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import MainLayout from './layouts/MainLayout.layout'
 import { APP_ROUTER } from './routers'
 import { Toaster } from 'sonner'
-import Acount from './pages/config/sections/acount/Acount'
-import Security from './pages/config/sections/security/Security'
 
 const LoginPage = lazy(() => import('./pages/login/Login.page'))
 const DashboardPage = lazy(() => import('./pages/dashboard/Dashboard.page'))
@@ -16,6 +14,9 @@ const CustomerPage = lazy(() => import('./pages/customer/Customer.page'))
 const EmployeePage = lazy(() => import('./pages/employee/Employee.page'))
 const LocalPage = lazy(() => import('./pages/local/Local.page'))
 const ConfigPage = lazy(() => import('./pages/config/Config.page'))
+
+const AcountSection = lazy(() => import('./pages/config/sections/acount/Acount'))
+const SecuritySection = lazy(() => import('./pages/config/sections/security/Security'))
 
 const App = () => {
   return (
@@ -34,8 +35,8 @@ const App = () => {
             <Route path={APP_ROUTER.STORES} element={<LocalPage />} />
             <Route path={APP_ROUTER.SETTINGS} element={<ConfigPage />}>
               <Route path='' element={<Navigate to={APP_ROUTER.SETTINGS_ACCOUNT} />} />
-              <Route path={APP_ROUTER.SETTINGS_ACCOUNT} element={<Acount />} />
-              <Route path={APP_ROUTER.SETTINGS_SECURITY} element={<Security />} />
+              <Route path={APP_ROUTER.SETTINGS_ACCOUNT} element={<AcountSection />} />
+              <Route path={APP_ROUTER.SETTINGS_SECURITY} element={<SecuritySection />} />
             </Route>
           </Route>
         </Routes>

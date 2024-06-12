@@ -23,16 +23,19 @@ const Security = () => {
         label='Contraseña Actual'
         hookForm={register('oldPassword')}
         error={errors.oldPassword}
+        type='password'
       />
       <Input
         label='Nueva Contraseña'
         hookForm={register('password')}
         error={errors.password}
+        type='password'
       />
       <Input
         label='Confirmar Contraseña'
         hookForm={register('confirmPassword')}
         error={errors.confirmPassword}
+        type='password'
       />
       <Button type='submit' className='mt-2'>
         Guardar
