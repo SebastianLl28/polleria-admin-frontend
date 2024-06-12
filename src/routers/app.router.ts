@@ -8,5 +8,7 @@ export const APP_ROUTER = {
   PURCHASES: '/purchases',
   USERS: '/users',
   STORES: '/stores',
-  SETTINGS: '/settings'
+  SETTINGS: '/settings',
+  SETTINGS_ACCOUNT: 'account',
+  SETTINGS_SECURITY: 'security'
 }
