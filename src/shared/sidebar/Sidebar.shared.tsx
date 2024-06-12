@@ -24,7 +24,10 @@ const Sidebar = () => {
             <li key={index}>
               <NavLink
                 to={element.path}
-                className='flex items-center rounded-lg px-3 py-2 text-slate-900 hover:bg-slate-100'
+                className={({ isActive }) =>
+                  'flex items-center rounded-lg px-3 py-2 text-slate-900 hover:bg-slate-200' +
+                  (isActive ? ' bg-slate-200' : ' bg-transparent')
+                }
               >
                 <element.Icon className='h-5 w-5' />
                 <span className='ml-3 flex-1 whitespace-nowrap'>{element.name}</span>
@@ -32,11 +35,11 @@ const Sidebar = () => {
             </li>
           ))}
         </ul>
-        <ul className='mt-auto flex'>
+        <ul className='mt-auto flex font-medium'>
           <li className='w-full'>
             <NavLink
               to={APP_ROUTER.DASHBOARD}
-              className='flex items-center rounded-lg px-3 py-2 text-slate-900 hover:bg-slate-100'
+              className='flex items-center rounded-lg px-3 py-2 text-slate-900 hover:bg-slate-200'
             >
               <DoorClosed />
               <span className='ml-3 flex-1 whitespace-nowrap'>Cerrar Sesión</span>
