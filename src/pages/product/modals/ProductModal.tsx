@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useGetProductById } from '@/hooks/products.hook'
 import { Building, Star } from 'lucide-react'
+import CirclePing from '@/components/CirclePing'
 
 interface ProductModalProps {
   idProduct: number | null
@@ -24,13 +25,8 @@ const ProductModal = ({ idProduct, isOpen, closeModal }: ProductModalProps) => {
       <AlertDialogContent className='max-w-[55rem]'>
         {!isLoading && isSuccess && data && (
           <>
-            <div className={`absolute right-5 top-4 flex items-center justify-center`}>
-              <div
-                className={`absolute size-4 animate-ping rounded-full ${data?.status ? 'bg-green-500' : 'bg-red-500'}`}
-              />
-              <div
-                className={`size-4 rounded-full ${data?.status ? 'bg-green-500' : 'bg-red-500'}`}
-              />
+            <div className='absolute right-5 top-4'>
+              <CirclePing status={data.status} />
             </div>
             <AlertDialogTitle className='text-center text-xl'>
               {data.name}
@@ -45,7 +41,7 @@ const ProductModal = ({ idProduct, isOpen, closeModal }: ProductModalProps) => {
                   ))}
                 </ul>
                 <p>{data.description}</p>
-                <div className='flex space-x-6'>  
+                <div className='flex space-x-6'>
                   <p className='font-semibold'>
                     Precio: <span className='font-normal'>S/.{data.price}</span>
                   </p>
@@ -97,7 +93,9 @@ const ProductModal = ({ idProduct, isOpen, closeModal }: ProductModalProps) => {
                 </div>
               </div>
               <div className='w-full rounded-md bg-slate-200 p-2'>
-                <ul className={`grid grid-cols-2 gap-x-1 ${!(data.stock.length > 0) ? 'h-full' : '' }`}>
+                <ul
+                  className={`grid grid-cols-2 gap-x-1 ${!(data.stock.length > 0) ? 'h-full' : ''}`}
+                >
                   {data.stock.length > 0 ? (
                     data.stock.map(({ quantity, store }, index) => (
                       <li

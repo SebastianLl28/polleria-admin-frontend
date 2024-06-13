@@ -9,14 +9,27 @@ import {
 import { FolderUp, Grip } from 'lucide-react'
 import useDialog from '../hook/useDialog'
 
-const Header = () => {
+interface HeaderProps {
+  isCardView: boolean
+  setIsCardView: (value: boolean) => void
+}
+
+const Header = ({ isCardView, setIsCardView }: HeaderProps) => {
   const { ModalCustomer } = useDialog()
+
+  const handleClickCard = () => {
+    setIsCardView(!isCardView)
+  }
 
   return (
     <section className='flex w-full items-center justify-between'>
       <div className='flex space-x-4'>
         <h2 className='text-4xl font-bold'>Clientes</h2>
-        <Button variant='ghost' className='relative top-2 mt-auto space-x-2 px-4'>
+        <Button
+          variant='ghost'
+          className={`relative top-2 mt-auto space-x-2 px-4 ${isCardView && 'bg-slate-100'}`}
+          onClick={handleClickCard}
+        >
           <Grip size={16} />
           <span className=''>Card View</span>
         </Button>

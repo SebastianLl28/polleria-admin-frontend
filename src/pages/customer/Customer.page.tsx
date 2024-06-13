@@ -4,6 +4,8 @@ import Header from './sections/Header'
 import Table from './table/Table'
 import useDelete from './hook/useDelete'
 import useDialog from './hook/useDialog'
+import { useState } from 'react'
+import Cards from './views/Cards'
 
 const handleClick = (item: string) => {
   console.log(item)
@@ -11,6 +13,9 @@ const handleClick = (item: string) => {
 
 const CustomerPage = () => {
   const { data, isLoading, isSuccess } = useGetAllCustomer()
+
+  const [isCardView, setIsCardView] = useState(false)
+
   const headers: IHeader[] = [
     {
       key: 'id',
@@ -85,10 +90,15 @@ const CustomerPage = () => {
 
   return (
     <main className='space-y-12 p-12'>
-      <Header />
-      {!isLoading && isSuccess && data.content.length > 0 && (
-        <Table header={headers} data={data} actions={actions} />
-      )}
+      <Header isCardView={isCardView} setIsCardView={setIsCardView} />
+      {!isLoading &&
+        isSuccess &&
+        data.content.length > 0 &&
+        (isCardView ? (
+          <Cards data={data} actions={actions} />
+        ) : (
+          <Table header={headers} data={data} actions={actions} />
+        ))}
       <DeleteAlert />
       <ModalCustomer />
     </main>
