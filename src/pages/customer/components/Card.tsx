@@ -1,9 +1,9 @@
 import { Customer } from '@/model/Customer.model'
 import { Card as Cardcn, CardTitle, CardHeader, CardContent } from '@/components/ui/card'
-import { IActions } from '../interface/IHeader'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Button } from '@/components/ui/button'
 import { EllipsisVertical } from 'lucide-react'
+import { IActions } from '@/components/table/interfaces/ITable'
 
 interface CardProps extends Customer {
   actions: IActions[]

@@ -1,7 +1,7 @@
 import { Customer } from '@/model/Customer.model'
 import { Pagination } from '@/model/Pagination.model'
 import Card from '../components/Card'
-import { IActions } from '../interface/IHeader'
+import { IActions } from '@/components/table/interfaces/ITable'
 
 interface CardsProps {
   data: Pagination<Customer>

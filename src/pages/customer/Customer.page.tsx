@@ -1,11 +1,10 @@
-import { useGetAllCustomer } from '@/hooks/customer.hook'
-import { IActions, IHeader } from './interface/IHeader'
-import Header from './sections/Header'
-import Table from './table/Table'
-import useDelete from './hook/useDelete'
-import useDialog from './hook/useDialog'
 import { useState } from 'react'
+import { useGetAllCustomer } from '@/hooks/customer.hook'
+import Header from './sections/Header'
 import Cards from './views/Cards'
+import Table from '@/components/table/Table'
+import { IActions, IHeader } from '@/components/table/interfaces/ITable'
+import { useDelete, useDialog } from './hook'
 
 const handleClick = (item: string) => {
   console.log(item)
