@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import CustomerAlert from '../alerts/CustomerAlert'
 import { Customer } from '@/model/Customer.model'
+import { CustomerAlert } from '../modals'
 
 const useDialog = () => {
   const [isOpen, setIsOpen] = useState(false)

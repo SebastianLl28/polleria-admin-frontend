@@ -5,5 +5,11 @@ export interface Customer {
   email: string
   password: string
   birthdate: string
-  status: 'UNVERIFIED' | 'ACTIVE' | 'BLOCKED'
+  status: CustomerStatus
+}
+
+export enum CustomerStatus {
+  UNVERIFIED = 'UNVERIFIED',
+  ACTIVE = 'ACTIVE',
+  BLOCKED = 'BLOCKED'
 }

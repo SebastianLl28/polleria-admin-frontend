@@ -1,4 +1,5 @@
-import Input from '@/components/Input.component'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   AlertDialog,
   AlertDialogContent,
@@ -6,11 +7,10 @@ import {
   AlertDialogTitle
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { useForm } from 'react-hook-form'
-import { AddCustomerSchema, addCustomerSchema } from '../schema/customer.schema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Customer } from '@/model/Customer.model'
 import { Label } from '@/components/ui/label'
+import { Customer } from '@/model/Customer.model'
+import Input from '@/components/Input.component'
+import { AddCustomerSchema, addCustomerSchema } from '../schema/customer.schema'
 
 interface AddCustomerProps {
   isOpen: boolean

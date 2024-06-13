@@ -1,3 +1,5 @@
+import { FolderUp, Grip } from 'lucide-react'
+import { generatePdf } from '@/lib/generatePdf'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -6,19 +8,36 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { FolderUp, Grip } from 'lucide-react'
-import useDialog from '../hook/useDialog'
+import { Customer, CustomerStatus } from '@/model/Customer.model'
+import { useDialog } from '../hook'
 
 interface HeaderProps {
   isCardView: boolean
   setIsCardView: (value: boolean) => void
+  filter: undefined | keyof typeof CustomerStatus
+  setFilter: (value: keyof typeof CustomerStatus) => void
+  data: Customer[]
 }
 
-const Header = ({ isCardView, setIsCardView }: HeaderProps) => {
+const Header = ({ isCardView, setIsCardView, filter, setFilter, data }: HeaderProps) => {
   const { ModalCustomer } = useDialog()
 
   const handleClickCard = () => {
     setIsCardView(!isCardView)
+  }
+
+  const handleExport = () => {
+    const dataExport = data.map(item => ({
+      nombre: item.name,
+      apellido: item.lastname,
+      correo: item.email,
+      cumpleaños: item.birthdate,
+      estado:
+        (item.status === 'ACTIVE' && 'Activo') ||
+        (item.status === 'BLOCKED' && 'Bloqueado') ||
+        'No verificado'
+    }))
+    generatePdf(dataExport, 'customers')
   }
 
   return (
@@ -44,17 +63,26 @@ const Header = ({ isCardView, setIsCardView }: HeaderProps) => {
             <SelectItem value='email'>Correo</SelectItem>
           </SelectContent>
         </Select>
-        <Select>
+        <Select
+          value={filter}
+          onValueChange={(e: keyof typeof CustomerStatus) => setFilter(e)}
+        >
           <SelectTrigger className='w-48'>
             <SelectValue placeholder='Filtrar por' />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value='all'>Todos</SelectItem>
-            <SelectItem value='active'>Activos</SelectItem>
-            <SelectItem value='inactive'>Inactivos</SelectItem>
+            <SelectItem value='ALL'>Todos</SelectItem>
+            <SelectItem value='ACTIVE'>Activos</SelectItem>
+            <SelectItem value='BLOCKED'>bloqueados</SelectItem>
+            <SelectItem value='UNVERIFIED'>No verificados</SelectItem>
           </SelectContent>
         </Select>
-        <Button className='space-x-2' type='button' variant='secondary'>
+        <Button
+          className='space-x-2'
+          type='button'
+          variant='secondary'
+          onClick={handleExport}
+        >
           <FolderUp size={16} />
           <span>Exportar</span>
         </Button>

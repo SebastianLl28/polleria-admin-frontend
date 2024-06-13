@@ -1,19 +1,18 @@
 import { useState } from 'react'
-import { useGetAllCustomer } from '@/hooks/customer.hook'
-import Header from './sections/Header'
-import Cards from './views/Cards'
-import Table from '@/components/table/Table'
-import { IActions, IHeader } from '@/components/table/interfaces/ITable'
-import { useDelete, useDialog } from './hook'
-
-const handleClick = (item: string) => {
-  console.log(item)
-}
+import { IActions, IHeader, Table } from '@/components/table'
+import { useDelete, useDialog, useData } from './hook'
+import { Header, Cards } from './sections'
 
 const CustomerPage = () => {
-  const { data, isLoading, isSuccess } = useGetAllCustomer()
+  const { data, filter, isLoading, isSuccess, setFilter } = useData()
 
   const [isCardView, setIsCardView] = useState(false)
+  const { DeleteAlert, handleDelete } = useDelete()
+  const { ModalCustomer, openDialog } = useDialog()
+
+  const handleClick = (item: string) => {
+    console.log(item)
+  }
 
   const headers: IHeader[] = [
     {
@@ -72,9 +71,6 @@ const CustomerPage = () => {
     }
   ]
 
-  const { DeleteAlert, handleDelete } = useDelete()
-  const { ModalCustomer, openDialog } = useDialog()
-
   const actions: IActions[] = [
     {
       name: 'Ver',
@@ -89,9 +85,16 @@ const CustomerPage = () => {
 
   return (
     <main className='space-y-12 p-12'>
-      <Header isCardView={isCardView} setIsCardView={setIsCardView} />
+      <Header
+        isCardView={isCardView}
+        setIsCardView={setIsCardView}
+        setFilter={setFilter}
+        filter={filter}
+        data={data?.content || []}
+      />
       {!isLoading &&
         isSuccess &&
+        data &&
         data.content.length > 0 &&
         (isCardView ? (
           <Cards data={data} actions={actions} />

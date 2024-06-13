@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import DeleteCustomer from '../alerts/DeleteCustomer'
 import { Customer } from '@/model/Customer.model'
 import { usePutCustomer } from '@/hooks/customer.hook'
+import { DeleteCustomer } from '../modals'
 
 const useDelete = () => {
   const [isOpen, setIsOpen] = useState(false)
