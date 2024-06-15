@@ -1,8 +1,9 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import MainLayout from './layouts/MainLayout.layout'
-import { APP_ROUTER } from './routers'
 import { Toaster } from 'sonner'
+import { APP_ROUTER } from './routers'
+import MainLayout from './layouts/MainLayout.layout'
+import Loader from './shared/loader/Loader'
 
 const LoginPage = lazy(() => import('./pages/login/Login.page'))
 const DashboardPage = lazy(() => import('./pages/dashboard/Dashboard.page'))
@@ -21,7 +22,7 @@ const SecuritySection = lazy(() => import('./pages/config/sections/security/Secu
 const App = () => {
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path={APP_ROUTER.LOGIN} element={<LoginPage />} />
           <Route element={<MainLayout />}>
