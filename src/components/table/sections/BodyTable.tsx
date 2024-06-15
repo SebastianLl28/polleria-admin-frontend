@@ -28,6 +28,9 @@ const Content = ({ actions, header, index, item, rowClick }: IContent) => {
           key={headerIndex}
           className={`self-center px-4 py-4 ${headerItem.overflow === 'hidden' ? 'hidden' : ''}`}
           onClick={() => headerItem.action && headerItem.action(item[headerItem.key])}
+          style={{
+            paddingBlock: headerItem.render?.toString().includes('img') ? '0.4rem' : ''
+          }}
         >
           {headerItem.render
             ? headerItem.render(item[headerItem.key])
@@ -35,7 +38,7 @@ const Content = ({ actions, header, index, item, rowClick }: IContent) => {
         </div>
       ))}
       {actions.length > 0 && (
-        <div className='py-2 text-center text-lg text-primary'>
+        <div className='my-auto py-2 text-center text-lg text-primary'>
           <Popover>
             <PopoverTrigger>
               <Button variant='ghost' className=''>
