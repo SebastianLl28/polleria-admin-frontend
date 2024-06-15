@@ -16,19 +16,19 @@ const TableView = ({ data, actions }: TableViewProps) => {
     },
     {
       key: 'fullname',
-      label: 'Name',
+      label: 'Nombre',
       overflow: 'visible',
       size: 1
     },
     {
       key: 'username',
-      label: 'Admin',
+      label: 'Nombre de usuario',
       overflow: 'visible',
       size: 1
     },
     {
       key: 'status',
-      label: 'Status',
+      label: 'Estado',
       overflow: 'visible',
       size: 1,
       render: (value: boolean) => {
