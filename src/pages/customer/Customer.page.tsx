@@ -4,7 +4,7 @@ import { useDelete, useDialog, useData } from './hook'
 import { Header, Cards } from './sections'
 
 const CustomerPage = () => {
-  const { data, filter, isLoading, isSuccess, setFilter } = useData()
+  const { data, isLoading, isSuccess } = useData()
 
   const [isCardView, setIsCardView] = useState(false)
   const { DeleteAlert, handleDelete } = useDelete()
@@ -88,8 +88,6 @@ const CustomerPage = () => {
       <Header
         isCardView={isCardView}
         setIsCardView={setIsCardView}
-        setFilter={setFilter}
-        filter={filter}
         data={data?.content || []}
       />
       {!isLoading &&

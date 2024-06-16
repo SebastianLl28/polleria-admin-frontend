@@ -10,16 +10,17 @@ import {
 } from '@/components/ui/select'
 import { Customer, CustomerStatus } from '@/model/Customer.model'
 import { useDialog } from '../hook'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux.hook'
+import { Input } from '@/components/ui/input'
+import { setOrderBy, setSearch } from '@/store/customerFilterSlice.store'
 
 interface HeaderProps {
   isCardView: boolean
   setIsCardView: (value: boolean) => void
-  filter: undefined | keyof typeof CustomerStatus
-  setFilter: (value: keyof typeof CustomerStatus) => void
   data: Customer[]
 }
 
-const Header = ({ isCardView, setIsCardView, filter, setFilter, data }: HeaderProps) => {
+const Header = ({ isCardView, setIsCardView, data }: HeaderProps) => {
   const { ModalCustomer } = useDialog()
 
   const handleClickCard = () => {
@@ -40,6 +41,9 @@ const Header = ({ isCardView, setIsCardView, filter, setFilter, data }: HeaderPr
     generatePdf(dataExport, 'customers')
   }
 
+  const { search, orderBy } = useAppSelector(state => state.customerFilter)
+  const dipatch = useAppDispatch()
+
   return (
     <section className='flex w-full items-center justify-between'>
       <div className='flex space-x-4'>
@@ -54,20 +58,16 @@ const Header = ({ isCardView, setIsCardView, filter, setFilter, data }: HeaderPr
         </Button>
       </div>
       <div className='flex items-center space-x-4'>
-        <Select>
-          <SelectTrigger className='w-48'>
-            <SelectValue placeholder='Ordernar por...' />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value='name'>Nombre</SelectItem>
-            <SelectItem value='email'>Correo</SelectItem>
-          </SelectContent>
-        </Select>
+        <Input
+          value={search}
+          placeholder='Buscar Cliente...'
+          onChange={e => dipatch(setSearch(e.target.value))}
+        />
         <Select
-          value={filter}
-          onValueChange={(e: keyof typeof CustomerStatus) => setFilter(e)}
+          value={orderBy}
+          onValueChange={(e: keyof typeof CustomerStatus) => dipatch(setOrderBy(e))}
         >
-          <SelectTrigger className='w-48'>
+          <SelectTrigger className='w-72'>
             <SelectValue placeholder='Filtrar por' />
           </SelectTrigger>
           <SelectContent>
@@ -78,7 +78,7 @@ const Header = ({ isCardView, setIsCardView, filter, setFilter, data }: HeaderPr
           </SelectContent>
         </Select>
         <Button
-          className='space-x-2'
+          className='ml-4 space-x-2'
           type='button'
           variant='secondary'
           onClick={handleExport}
