@@ -6,7 +6,6 @@ export const APP_ROUTER = {
   CATEGORIES: '/categories',
   PRODUCTS: '/products',
   PURCHASES: '/purchases',
-  USERS: '/users',
   STORES: '/stores',
   SETTINGS: '/settings',
   SETTINGS_ACCOUNT: 'account',

@@ -7,7 +7,6 @@ import Loader from './shared/loader/Loader'
 
 const LoginPage = lazy(() => import('./pages/login/Login.page'))
 const DashboardPage = lazy(() => import('./pages/dashboard/Dashboard.page'))
-const UsersPage = lazy(() => import('./pages/user/User.page'))
 const CategoriesPage = lazy(() => import('./pages/categories/Categories.page'))
 const ProductsPage = lazy(() => import('./pages/product/Product.page'))
 const PurchasesPage = lazy(() => import('./pages/purchase/Purchase.page'))
@@ -27,7 +26,6 @@ const App = () => {
           <Route path={APP_ROUTER.LOGIN} element={<LoginPage />} />
           <Route element={<MainLayout />}>
             <Route path={APP_ROUTER.DASHBOARD} element={<DashboardPage />} />
-            <Route path={APP_ROUTER.USERS} element={<UsersPage />} />
             <Route path={APP_ROUTER.CATEGORIES} element={<CategoriesPage />} />
             <Route path={APP_ROUTER.PRODUCTS} element={<ProductsPage />} />
             <Route path={APP_ROUTER.PURCHASES} element={<PurchasesPage />} />

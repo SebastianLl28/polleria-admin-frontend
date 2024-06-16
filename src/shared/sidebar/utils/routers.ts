@@ -2,7 +2,6 @@ import { APP_ROUTER } from '@/routers'
 import {
   BarChartBig,
   BriefcaseBusiness,
-  Contact,
   Drumstick,
   LayoutDashboard,
   Settings,
@@ -41,11 +40,6 @@ export const routers = [
     name: 'Compras',
     path: APP_ROUTER.PURCHASES,
     Icon: ShoppingBag
-  },
-  {
-    name: 'Usuarios',
-    path: APP_ROUTER.USERS,
-    Icon: Contact
   },
   {
     name: 'Tiendas',
