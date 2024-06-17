@@ -13,7 +13,7 @@ import { User } from '@/model/User.model'
 interface EmployeeModalProps {
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
-  user: User | null
+  user: Omit<User, 'password'> | null
 }
 
 const EmployeeModal = ({ isOpen, setIsOpen, user }: EmployeeModalProps) => {

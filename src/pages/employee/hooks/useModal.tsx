@@ -4,9 +4,9 @@ import { EmployeeModal } from '../modals'
 
 const useModal = () => {
   const [isOpenModal, setIsOpenModal] = useState(false)
-  const [user, setUser] = useState<null | User>(null)
+  const [user, setUser] = useState<null | Omit<User, 'password'>>(null)
 
-  const handleOpen = (user: User) => {
+  const handleOpen = (user: Omit<User, 'password'>) => {
     setUser(user)
     setIsOpenModal(true)
   }

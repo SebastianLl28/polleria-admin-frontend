@@ -2,7 +2,7 @@ import { IActions, IHeader, Table } from '@/components/table'
 import { User } from '@/model/User.model'
 
 interface TableViewProps {
-  data: User[]
+  data: Omit<User, 'password'>[]
   actions: IActions[]
 }
 

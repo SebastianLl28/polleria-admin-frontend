@@ -3,4 +3,4 @@ import { baseApi } from '@/api/baseApi.api'
 import { User } from '@/model/User.model'
 
 export const getAllUsers = async () =>
-  await baseApi.get<User[]>('/users').then(res => res.data)
+  await baseApi.get<Omit<User, 'password'>[]>('/users').then(res => res.data)
