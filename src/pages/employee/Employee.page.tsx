@@ -19,7 +19,7 @@ const EmployeePage = () => {
 
   return (
     <main className='space-y-12 p-12'>
-      <Header isCardView={isCardView} setIsCardView={setIsCardView} />
+      <Header isCardView={isCardView} setIsCardView={setIsCardView} data={data} />
       {!isLoading &&
         isSuccess &&
         data &&
