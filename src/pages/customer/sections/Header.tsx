@@ -73,7 +73,7 @@ const Header = ({ isCardView, setIsCardView, data }: HeaderProps) => {
           <SelectContent>
             <SelectItem value='ALL'>Todos</SelectItem>
             <SelectItem value='ACTIVE'>Activos</SelectItem>
-            <SelectItem value='BLOCKED'>bloqueados</SelectItem>
+            <SelectItem value='BLOCKED'>Bloqueados</SelectItem>
             <SelectItem value='UNVERIFIED'>No verificados</SelectItem>
           </SelectContent>
         </Select>
