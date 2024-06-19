@@ -4,7 +4,6 @@ import {
   BriefcaseBusiness,
   Drumstick,
   LayoutDashboard,
-  Settings,
   ShoppingBag,
   Store,
   UserSearch
@@ -45,10 +44,5 @@ export const routers = [
     name: 'Tiendas',
     path: APP_ROUTER.STORES,
     Icon: Store
-  },
-  {
-    name: 'Configuraciones',
-    path: APP_ROUTER.SETTINGS,
-    Icon: Settings
   }
 ]

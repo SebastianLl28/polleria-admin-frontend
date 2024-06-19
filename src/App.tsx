@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import { APP_ROUTER } from './routers'
 import MainLayout from './layouts/MainLayout.layout'
@@ -13,10 +13,6 @@ const PurchasesPage = lazy(() => import('./pages/purchase/Purchase.page'))
 const CustomerPage = lazy(() => import('./pages/customer/Customer.page'))
 const EmployeePage = lazy(() => import('./pages/employee/Employee.page'))
 const LocalPage = lazy(() => import('./pages/local/Local.page'))
-const ConfigPage = lazy(() => import('./pages/config/Config.page'))
-
-const AcountSection = lazy(() => import('./pages/config/sections/acount/Acount'))
-const SecuritySection = lazy(() => import('./pages/config/sections/security/Security'))
 
 const App = () => {
   return (
@@ -32,11 +28,6 @@ const App = () => {
             <Route path={APP_ROUTER.CUSTOMER} element={<CustomerPage />} />
             <Route path={APP_ROUTER.EMPLOYEE} element={<EmployeePage />} />
             <Route path={APP_ROUTER.STORES} element={<LocalPage />} />
-            <Route path={APP_ROUTER.SETTINGS} element={<ConfigPage />}>
-              <Route path='' element={<Navigate to={APP_ROUTER.SETTINGS_ACCOUNT} />} />
-              <Route path={APP_ROUTER.SETTINGS_ACCOUNT} element={<AcountSection />} />
-              <Route path={APP_ROUTER.SETTINGS_SECURITY} element={<SecuritySection />} />
-            </Route>
           </Route>
         </Routes>
       </Suspense>
