@@ -9,12 +9,6 @@ interface TableViewProps {
 const TableView = ({ data, actions }: TableViewProps) => {
   const headers: IHeader<User>[] = [
     {
-      key: 'id',
-      label: 'ID',
-      overflow: 'visible',
-      size: 0.4
-    },
-    {
       key: 'fullname',
       label: 'Nombre',
       overflow: 'visible',
