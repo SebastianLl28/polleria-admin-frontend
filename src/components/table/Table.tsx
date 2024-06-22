@@ -1,13 +1,13 @@
 import { ITable } from './interfaces/ITable'
-import BodyTable from './sections/BodyTable'
-import HeaderTable from './sections/HeaderTable'
+import BodyTable from './sections/body/BodyTable'
+import HeaderTable from './sections/header/HeaderTable'
 
-const Table = ({ header, data, actions, rowClick }: ITable) => {
+const Table = <T,>({ header, data, actions, rowClick }: ITable<T>) => {
   return (
-    <div className='space-y-4'>
+    <table className='w-full'>
       <HeaderTable header={header} />
       <BodyTable header={header} data={data} actions={actions} rowClick={rowClick} />
-    </div>
+    </table>
   )
 }
 
