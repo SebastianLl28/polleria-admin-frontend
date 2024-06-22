@@ -1,4 +1,4 @@
-const PurchasePage = () => {
+const SalesPage = () => {
   return (
     <div>
       <p>this is page purchase PAge</p>
@@ -6,4 +6,4 @@ const PurchasePage = () => {
   )
 }
 
-export default PurchasePage
+export default SalesPage

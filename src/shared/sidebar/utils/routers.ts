@@ -36,8 +36,8 @@ export const routers = [
     Icon: Drumstick
   },
   {
-    name: 'Compras',
-    path: APP_ROUTER.PURCHASES,
+    name: 'Ventas',
+    path: APP_ROUTER.SALES,
     Icon: ShoppingBag
   },
   {

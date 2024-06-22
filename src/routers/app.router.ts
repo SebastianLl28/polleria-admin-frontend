@@ -5,6 +5,6 @@ export const APP_ROUTER = {
   EMPLOYEE: '/employee',
   CATEGORIES: '/categories',
   PRODUCTS: '/products',
-  PURCHASES: '/purchases',
+  SALES: '/sales',
   STORES: '/stores'
 }
