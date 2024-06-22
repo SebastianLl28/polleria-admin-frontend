@@ -25,15 +25,6 @@ const Header = () => {
         <div className='flex items-center space-x-4'>
           <Select>
             <SelectTrigger className='w-48'>
-              <SelectValue placeholder='Ordernar por...' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value='name'>Nombre</SelectItem>
-              <SelectItem value='email'>Correo</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select>
-            <SelectTrigger className='w-48'>
               <SelectValue placeholder='Filtrar por' />
             </SelectTrigger>
             <SelectContent>

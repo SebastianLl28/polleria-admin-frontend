@@ -14,7 +14,11 @@ const Body = () => {
       key: 'name',
       label: 'Nombre',
       size: 1,
-      overflow: 'visible'
+      overflow: 'visible',
+      orderColumn: true,
+      onSortAsc: () => console.log('sort asc name'),
+      onSortDesc: () => console.log('sort desc name'),
+      onSortRemove: () => console.log('sort remove name')
     },
     {
       key: 'imageUrl',

@@ -15,16 +15,14 @@ const TableView = ({ data, action }: TableViewProps) => {
 
   const header: IHeader<Store>[] = [
     {
-      key: 'id',
-      label: 'ID',
-      overflow: 'visible',
-      size: 0.5
-    },
-    {
       key: 'name',
       label: 'Nombre',
       overflow: 'visible',
-      size: 1
+      size: 1,
+      orderColumn: true,
+      onSortAsc: () => console.log('sort asc name'),
+      onSortDesc: () => console.log('sort desc name'),
+      onSortRemove: () => console.log('sort remove name')
     },
     {
       key: 'address',

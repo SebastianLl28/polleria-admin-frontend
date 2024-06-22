@@ -19,7 +19,11 @@ const Body = () => {
       key: 'name',
       label: 'Nombre',
       overflow: 'visible',
-      size: 1
+      size: 1,
+      orderColumn: true,
+      onSortAsc: () => console.log('Sort Asc by name'),
+      onSortDesc: () => console.log('Sort Desc by name'),
+      onSortRemove: () => console.log('Remove Sort by name')
     },
     {
       key: 'description',
@@ -41,7 +45,11 @@ const Body = () => {
       size: 1,
       render: ({ price }: Product) => {
         return <span>S/.{price}</span>
-      }
+      },
+      orderColumn: true,
+      onSortAsc: () => console.log('Sort Asc by price'),
+      onSortDesc: () => console.log('Sort Desc by price'),
+      onSortRemove: () => console.log('Remove Sort by price')
     },
     {
       key: 'cardImage',
@@ -63,7 +71,11 @@ const Body = () => {
             <span>{valoration}</span> <Star className='text-yellow-500' />
           </p>
         )
-      }
+      },
+      orderColumn: true,
+      onSortAsc: () => console.log('Sort Asc by valoration'),
+      onSortDesc: () => console.log('Sort Desc by valoration'),
+      onSortRemove: () => console.log('Remove Sort by valoration')
     },
     {
       key: 'status',
