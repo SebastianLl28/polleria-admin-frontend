@@ -5,7 +5,7 @@ import { IActions } from '@/components/table'
 
 interface CardviewProps {
   data: Pagination<Store>
-  actions: IActions[]
+  actions: IActions<Store>[]
 }
 
 const CardView = ({ data, actions }: CardviewProps) => {

@@ -63,14 +63,14 @@ const TableView = ({ data, actions }: TableViewProps) => {
       key: 'status',
       label: 'Estado',
       overflow: 'visible',
-      render: (value: string) => {
+      render: ({ status }: Customer) => {
         return (
           <span
-            className={`rounded-md px-2 py-1 text-white ${value === 'ACTIVE' && 'bg-green-500'} ${value === 'UNVERIFIED' && 'bg-yellow-500'} ${value === 'BLOCKED' && 'bg-red-500'}`}
+            className={`rounded-md px-2 py-1 text-white ${status === 'ACTIVE' && 'bg-green-500'} ${status === 'UNVERIFIED' && 'bg-yellow-500'} ${status === 'BLOCKED' && 'bg-red-500'}`}
           >
-            {value === 'ACTIVE' && 'Activo'}
-            {value === 'BLOCKED' && 'Inactivo'}
-            {value === 'UNVERIFIED' && 'No verificado'}
+            {status === 'ACTIVE' && 'Activo'}
+            {status === 'BLOCKED' && 'Inactivo'}
+            {status === 'UNVERIFIED' && 'No verificado'}
           </span>
         )
       },

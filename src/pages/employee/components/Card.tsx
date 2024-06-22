@@ -6,7 +6,7 @@ import { IActions } from '@/components/table'
 import { User } from '@/model/User.model'
 
 interface CardProps extends Omit<User, 'password'> {
-  actions: IActions[]
+  actions: IActions<Omit<User, 'password'>>[]
 }
 
 const Card = ({ fullname, status, username, actions, id }: CardProps) => {

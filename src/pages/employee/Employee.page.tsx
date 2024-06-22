@@ -3,6 +3,7 @@ import { IActions } from '@/components/table'
 import { useGetAllUsers } from '@/hooks/user.hook'
 import { Header, CardsView, TableView } from './sections'
 import { useModal } from './hooks'
+import { User } from '@/model/User.model'
 
 const EmployeePage = () => {
   const { data, isLoading, isSuccess } = useGetAllUsers()
@@ -10,7 +11,7 @@ const EmployeePage = () => {
 
   const { handleOpen, ModalView } = useModal()
 
-  const actions: IActions[] = [
+  const actions: IActions<Omit<User, 'password'>>[] = [
     {
       name: 'Ver',
       action: handleOpen

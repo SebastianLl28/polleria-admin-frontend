@@ -6,14 +6,14 @@ import ImageModal from '../modals/ImageModal'
 
 interface TableViewProps {
   data: Pagination<Store>
-  action: IActions[]
+  action: IActions<Store>[]
 }
 
 const TableView = ({ data, action }: TableViewProps) => {
   const [isModalImageOpen, setIsModalImageOpen] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
 
-  const header: IHeader[] = [
+  const header: IHeader<Store>[] = [
     {
       key: 'id',
       label: 'ID',
@@ -31,10 +31,10 @@ const TableView = ({ data, action }: TableViewProps) => {
       label: 'Dirección',
       overflow: 'visible',
       size: 1,
-      render: (value: string) => {
+      render: ({ address }: Store) => {
         return (
-          <span className='line-clamp-1' title={value}>
-            {value}
+          <span className='line-clamp-1' title={address}>
+            {address}
           </span>
         )
       }
@@ -50,17 +50,17 @@ const TableView = ({ data, action }: TableViewProps) => {
       label: 'Imagen',
       overflow: 'visible',
       size: 1,
-      render: (value: string) => {
+      render: ({ imageUrl }: Store) => {
         return (
           <img
             className='m-0 h-12 w-auto cursor-pointer object-cover'
-            src={value}
+            src={imageUrl}
             alt='store'
           />
         )
       },
-      action(item: string) {
-        setImageUrl(item)
+      action({ imageUrl }: Store) {
+        setImageUrl(imageUrl)
         setIsModalImageOpen(true)
       }
     },
@@ -69,12 +69,12 @@ const TableView = ({ data, action }: TableViewProps) => {
       label: 'Estado',
       overflow: 'visible',
       size: 1,
-      render: (value: boolean) => {
+      render: ({ status }: Store) => {
         return (
           <span
-            className={`rounded-md px-2 py-1 text-white ${value ? 'bg-green-500' : 'bg-red-500'} `}
+            className={`rounded-md px-2 py-1 text-white ${status ? 'bg-green-500' : 'bg-red-500'} `}
           >
-            {value ? 'Activo' : 'Inactivo'}
+            {status ? 'Activo' : 'Inactivo'}
           </span>
         )
       }

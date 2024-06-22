@@ -12,7 +12,7 @@ import { IActions } from '@/components/table'
 import { Store } from '@/model/Store.model'
 
 interface CardProps extends Store {
-  actions: IActions[]
+  actions: IActions<Store>[]
 }
 
 const Card = ({

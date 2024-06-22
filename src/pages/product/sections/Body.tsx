@@ -8,7 +8,7 @@ import useModal from '../hooks/useModal'
 const Body = () => {
   const { data, isLoading, isSuccess } = useGetAllProducts()
 
-  const header: IHeader[] = [
+  const header: IHeader<Product>[] = [
     {
       key: 'id',
       label: 'ID',
@@ -26,10 +26,10 @@ const Body = () => {
       label: 'Descripción',
       overflow: 'visible',
       size: 2,
-      render: (value: string) => {
+      render: ({ description }: Product) => {
         return (
-          <span className='line-clamp-1' title={value}>
-            {value}
+          <span className='line-clamp-1' title={description}>
+            {description}
           </span>
         )
       }
@@ -39,8 +39,8 @@ const Body = () => {
       label: 'Precio',
       overflow: 'visible',
       size: 1,
-      render: (value: number) => {
-        return <span>S/.{value}</span>
+      render: ({ price }: Product) => {
+        return <span>S/.{price}</span>
       }
     },
     {
@@ -48,8 +48,8 @@ const Body = () => {
       label: 'Imagen',
       overflow: 'visible',
       size: 0.8,
-      render: (value: string) => {
-        return <img src={value} alt='product' className='h-auto w-8 object-cover' />
+      render: ({ cardImage }: Product) => {
+        return <img src={cardImage} alt='product' className='h-auto w-8 object-cover' />
       }
     },
     {
@@ -57,10 +57,10 @@ const Body = () => {
       label: 'Valoración',
       overflow: 'visible',
       size: 1,
-      render: (value: number) => {
+      render: ({ valoration }: Product) => {
         return (
           <p className='flex gap-2'>
-            <span>{value}</span> <Star className='text-yellow-500' />
+            <span>{valoration}</span> <Star className='text-yellow-500' />
           </p>
         )
       }
@@ -70,19 +70,19 @@ const Body = () => {
       label: 'Estado',
       size: 1,
       overflow: 'visible',
-      render: (value: boolean) => {
+      render: ({ status }: Product) => {
         return (
           <span
-            className={`rounded-md px-2 py-1 text-white ${value ? 'bg-green-500' : 'bg-destructive'}`}
+            className={`rounded-md px-2 py-1 text-white ${status ? 'bg-green-500' : 'bg-destructive'}`}
           >
-            {value ? 'Activo' : 'Inactivo'}
+            {status ? 'Activo' : 'Inactivo'}
           </span>
         )
       }
     }
   ]
 
-  const actions: IActions[] = [
+  const actions: IActions<Product>[] = [
     {
       name: 'Ver Detalles',
       action: (product: Product) => openModal(product.id)

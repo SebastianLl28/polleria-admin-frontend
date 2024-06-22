@@ -4,7 +4,7 @@ import { Card } from '../components'
 
 interface CardViewProps {
   data: Omit<User, 'password'>[]
-  actions: IActions[]
+  actions: IActions<Omit<User, 'password'>>[]
 }
 const CardsView = ({ data, actions }: CardViewProps) => {
   return (

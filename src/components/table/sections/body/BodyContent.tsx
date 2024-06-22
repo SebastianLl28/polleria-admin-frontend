@@ -34,7 +34,7 @@ const BodyContent = <T,>({ actions, header, item, rowClick }: IContent<T>) => {
               }}
             >
               {headerItem.render
-                ? headerItem.render(item[headerItem.key as keyof T] as unknown as string)
+                ? headerItem.render(item)
                 : String(item[headerItem.key as keyof T])}
             </td>
           )

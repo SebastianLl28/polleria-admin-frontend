@@ -3,13 +3,14 @@ import { useGetAllStores } from '@/hooks/store.hook'
 import { IActions } from '@/components/table'
 import { Header, TableView, CardView } from './sections'
 import useViewModal from './hooks/useViewModal'
+import { Store } from '@/model/Store.model'
 
 const LocalPage = () => {
   const [isCardView, setIsCardView] = useState(false)
   const { data, isLoading, isSuccess } = useGetAllStores()
   const { ViewModalContainer, openModal } = useViewModal()
 
-  const actions: IActions[] = [
+  const actions: IActions<Store>[] = [
     {
       name: 'View',
       action: openModal

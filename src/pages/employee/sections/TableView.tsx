@@ -3,11 +3,11 @@ import { User } from '@/model/User.model'
 
 interface TableViewProps {
   data: Omit<User, 'password'>[]
-  actions: IActions[]
+  actions: IActions<User>[]
 }
 
 const TableView = ({ data, actions }: TableViewProps) => {
-  const headers: IHeader[] = [
+  const headers: IHeader<User>[] = [
     {
       key: 'id',
       label: 'ID',
@@ -31,12 +31,12 @@ const TableView = ({ data, actions }: TableViewProps) => {
       label: 'Estado',
       overflow: 'visible',
       size: 1,
-      render: (value: boolean) => {
+      render: ({ status }: User) => {
         return (
           <span
-            className={`rounded-md px-2 py-1 text-white ${value ? 'bg-green-500' : 'bg-red-500'} `}
+            className={`rounded-md px-2 py-1 text-white ${status ? 'bg-green-500' : 'bg-red-500'} `}
           >
-            {value ? 'Activo' : 'Inactivo'}
+            {status ? 'Activo' : 'Inactivo'}
           </span>
         )
       }

@@ -9,7 +9,7 @@ const Body = () => {
   const { data, isLoading, isError, isSuccess } = useGetAllCategories()
   const { setCategory } = useCategoryStore()
 
-  const header: IHeader[] = [
+  const header: IHeader<Category>[] = [
     {
       key: 'name',
       label: 'Nombre',
@@ -21,8 +21,8 @@ const Body = () => {
       label: 'Imagen',
       size: 1,
       overflow: 'visible',
-      render: (value: string) => {
-        return <img src={value} alt='category' className='size-6' />
+      render: ({ imageUrl }: Category) => {
+        return <img src={imageUrl} alt='category' className='size-6' />
       }
     },
     {
@@ -30,12 +30,12 @@ const Body = () => {
       label: 'Estado',
       size: 1,
       overflow: 'visible',
-      render: (value: boolean) => {
+      render: ({ status }: Category) => {
         return (
           <span
-            className={`rounded-md px-2 py-1 text-white ${value ? 'bg-green-500' : 'bg-destructive'}`}
+            className={`rounded-md px-2 py-1 text-white ${status ? 'bg-green-500' : 'bg-destructive'}`}
           >
-            {value ? 'Activo' : 'Inactivo'}
+            {status ? 'Activo' : 'Inactivo'}
           </span>
         )
       }
@@ -44,7 +44,7 @@ const Body = () => {
 
   const { Modal, openModal } = useModal()
 
-  const actions: IActions[] = [
+  const actions: IActions<Category>[] = [
     {
       name: 'Editar',
       action: (category: Category) => openModal(category)
