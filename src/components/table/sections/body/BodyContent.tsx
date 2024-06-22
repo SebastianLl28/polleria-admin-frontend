@@ -20,20 +20,25 @@ const BodyContent = <T,>({ actions, header, item, rowClick }: IContent<T>) => {
             .join(' ') + ' 4rem'
       }}
     >
-      {header.map((headerItem, headerIndex) => (
-        <td
-          key={headerIndex}
-          className={`self-center px-4 py-4 ${headerItem.overflow === 'hidden' ? 'hidden' : ''}`}
-          onClick={() => headerItem.action && headerItem.action(item)}
-          style={{
-            paddingBlock: headerItem.render?.toString().includes('img') ? '0.4rem' : ''
-          }}
-        >
-          {headerItem.render
-            ? headerItem.render(item[headerItem.key as keyof T] as unknown as string)
-            : String(item[headerItem.key as keyof T])}
-        </td>
-      ))}
+      {header.map(
+        (headerItem, headerIndex) =>
+          headerItem.overflow !== 'hidden' && (
+            <td
+              key={headerIndex}
+              className={`self-center px-4 py-4`}
+              onClick={() => headerItem.action && headerItem.action(item)}
+              style={{
+                paddingBlock: headerItem.render?.toString().includes('img')
+                  ? '0.4rem'
+                  : ''
+              }}
+            >
+              {headerItem.render
+                ? headerItem.render(item[headerItem.key as keyof T] as unknown as string)
+                : String(item[headerItem.key as keyof T])}
+            </td>
+          )
+      )}
       {actions.length > 0 && (
         <td className='my-auto py-2 text-center text-lg text-primary'>
           <Popover>

@@ -71,26 +71,24 @@ const Header = <T,>({ header }: HeaderProps<T>) => {
           (
             { label, overflow, orderColumn, onSortAsc, onSortDesc, onSortRemove },
             index
-          ) => (
-            <th
-              key={index}
-              className={`px-4 py-2 text-start text-lg ${overflow === 'hidden' ? 'hidden' : ''}`}
-            >
-              {orderColumn ? (
-                <HeaderOrder
-                  label={label}
-                  index={index}
-                  order={orders.current[findOrder(index)] as 'ASC' | 'DESC' | null}
-                  onClick={handleClick}
-                  onSortAsc={onSortAsc || onSortAscDefault}
-                  onSortDesc={onSortDesc || onSortDescDefault}
-                  onSortRemove={onSortRemove || onSortRemoveDefault}
-                />
-              ) : (
-                <HeaderBasic label={label} />
-              )}
-            </th>
-          )
+          ) =>
+            overflow !== 'hidden' && (
+              <th key={index} className={`px-4 py-2 text-start text-lg`}>
+                {orderColumn ? (
+                  <HeaderOrder
+                    label={label}
+                    index={index}
+                    order={orders.current[findOrder(index)] as 'ASC' | 'DESC' | null}
+                    onClick={handleClick}
+                    onSortAsc={onSortAsc || onSortAscDefault}
+                    onSortDesc={onSortDesc || onSortDescDefault}
+                    onSortRemove={onSortRemove || onSortRemoveDefault}
+                  />
+                ) : (
+                  <HeaderBasic label={label} />
+                )}
+              </th>
+            )
         )}
       </tr>
     </thead>
