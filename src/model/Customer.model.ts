@@ -3,7 +3,6 @@ export interface Customer {
   name: string
   lastname: string
   email: string
-  password: string
   birthdate: string
   status: CustomerStatus
 }

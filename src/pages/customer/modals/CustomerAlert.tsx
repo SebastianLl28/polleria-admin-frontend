@@ -30,7 +30,6 @@ const CustomerAlert = ({ isOpen, closeDialog, customer }: AddCustomerProps) => {
       lastname: customer?.lastname || '',
       birthdate: '2021-09-01',
       email: customer?.email || '',
-      password: customer?.password || '',
       status: customer?.status || 'ACTIVE'
     }
   })
@@ -111,9 +110,6 @@ const CustomerAlert = ({ isOpen, closeDialog, customer }: AddCustomerProps) => {
               )}
             </Label>
           </div>
-          <span className='absolute bottom-1 text-gray-300'>
-            Mostrar las direcciones y productos favoritos in coming soon
-          </span>
           <AlertDialogFooter className='col-span-2'>
             <Button type='button' onClick={closeDialog}>
               Cerrar

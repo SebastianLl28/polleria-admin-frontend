@@ -5,7 +5,7 @@ import { Card } from '../components'
 
 interface CardsProps {
   data: Pagination<Customer>
-  actions: IActions[]
+  actions: IActions<Customer>[]
 }
 
 const Cards = ({ data, actions }: CardsProps) => {

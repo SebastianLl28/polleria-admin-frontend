@@ -6,7 +6,7 @@ import { Customer } from '@/model/Customer.model'
 import { IActions } from '@/components/table'
 
 interface CardProps extends Customer {
-  actions: IActions[]
+  actions: IActions<Customer>[]
 }
 
 const Card = ({ birthdate, email, lastname, name, status, id, actions }: CardProps) => {
