@@ -1,7 +1,5 @@
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { ITable } from '../../interfaces/ITable'
-import { Button } from '@/components/ui/button'
-import { EllipsisVertical } from 'lucide-react'
+import BodyButton from './BodyButton'
 
 interface IContent<T> extends Omit<ITable<T>, 'data'> {
   item: T
@@ -10,7 +8,7 @@ interface IContent<T> extends Omit<ITable<T>, 'data'> {
 const BodyContent = <T,>({ actions, header, item, rowClick }: IContent<T>) => {
   return (
     <tr
-      className={`grid w-full border-b border-slate-200 transition-colors last:border-0 ${rowClick ? 'cursor-pointer hover:bg-slate-100' : ''}`}
+      className={`-z-10 grid w-full border-b border-slate-200 transition-colors last:border-0 ${rowClick && ' cursor-pointer hover:bg-slate-100 '} `}
       onClick={() => rowClick && rowClick(item)}
       style={{
         gridTemplateColumns:
@@ -40,28 +38,8 @@ const BodyContent = <T,>({ actions, header, item, rowClick }: IContent<T>) => {
           )
       )}
       {actions.length > 0 && (
-        <td className='my-auto py-2 text-center text-lg text-primary'>
-          <Popover>
-            <PopoverTrigger>
-              <Button variant='ghost' className=''>
-                <EllipsisVertical size={24} />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className='w-min p-2'>
-              <div className='flex flex-col space-y-2'>
-                {actions.map((action, actionIndex) => (
-                  <Button
-                    key={actionIndex}
-                    variant={action.variant || 'ghost'}
-                    className='text-left text-sm'
-                    onClick={() => action.action(item)}
-                  >
-                    {action.name}
-                  </Button>
-                ))}
-              </div>
-            </PopoverContent>
-          </Popover>
+        <td className='lastTd my-auto py-2 text-center text-lg text-primary'>
+          <BodyButton actions={actions} item={item} />
         </td>
       )}
     </tr>
