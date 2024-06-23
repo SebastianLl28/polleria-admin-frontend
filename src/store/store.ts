@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import userSlice from './userSlice.store'
 import customerFilterSlice from './customerFilterSlice.store'
 import employeeFilterSlice from './employeeFilterSlice.store'
+import storeSelectedSlice from './storeSelectedSlice.store'
 
 export const store = configureStore({
   reducer: {
     user: userSlice,
     customerFilter: customerFilterSlice,
-    employeeFilter: employeeFilterSlice
+    employeeFilter: employeeFilterSlice,
+    storeSelected: storeSelectedSlice
   }
 })
 

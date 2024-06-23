@@ -1,8 +1,7 @@
 import { IActions, IHeader, Table } from '@/components/table'
 import { Pagination } from '@/model/Pagination.model'
 import { Store } from '@/model/Store.model'
-import { useState } from 'react'
-import ImageModal from '../modals/ImageModal'
+import useViewAssociatedProduct from '../hooks/useViewAssociatedProduct'
 
 interface TableViewProps {
   data: Pagination<Store>
@@ -10,25 +9,31 @@ interface TableViewProps {
 }
 
 const TableView = ({ data, action }: TableViewProps) => {
-  const [isModalImageOpen, setIsModalImageOpen] = useState(false)
-  const [imageUrl, setImageUrl] = useState('')
+  const { ModalAssociatedProducs, handleOpen } = useViewAssociatedProduct()
 
   const header: IHeader<Store>[] = [
     {
       key: 'name',
       label: 'Nombre',
       overflow: 'visible',
-      size: 1,
+      size: 0.9,
       orderColumn: true,
       onSortAsc: () => console.log('sort asc name'),
       onSortDesc: () => console.log('sort desc name'),
-      onSortRemove: () => console.log('sort remove name')
+      onSortRemove: () => console.log('sort remove name'),
+      render: ({ name }: Store) => {
+        return (
+          <span className='line-clamp-1' title={name}>
+            {name}
+          </span>
+        )
+      }
     },
     {
       key: 'address',
       label: 'Dirección',
       overflow: 'visible',
-      size: 1,
+      size: 1.5,
       render: ({ address }: Store) => {
         return (
           <span className='line-clamp-1' title={address}>
@@ -41,32 +46,13 @@ const TableView = ({ data, action }: TableViewProps) => {
       key: 'phone',
       label: 'Teléfono',
       overflow: 'visible',
-      size: 1
-    },
-    {
-      key: 'imageUrl',
-      label: 'Imagen',
-      overflow: 'visible',
-      size: 1,
-      render: ({ imageUrl }: Store) => {
-        return (
-          <img
-            className='m-0 h-12 w-auto cursor-pointer object-cover'
-            src={imageUrl}
-            alt='store'
-          />
-        )
-      },
-      action({ imageUrl }: Store) {
-        setImageUrl(imageUrl)
-        setIsModalImageOpen(true)
-      }
+      size: 0.8
     },
     {
       key: 'status',
       label: 'Estado',
       overflow: 'visible',
-      size: 1,
+      size: 0.5,
       render: ({ status }: Store) => {
         return (
           <span
@@ -81,12 +67,8 @@ const TableView = ({ data, action }: TableViewProps) => {
 
   return (
     <>
-      <Table header={header} data={data} actions={action} />
-      <ImageModal
-        isOpen={isModalImageOpen}
-        setIsOpen={setIsModalImageOpen}
-        imageUrl={imageUrl}
-      />
+      <Table header={header} data={data} actions={action} rowClick={handleOpen} />
+      <ModalAssociatedProducs />
     </>
   )
 }

@@ -12,7 +12,7 @@ const ProductsPage = lazy(() => import('./pages/product/Product.page'))
 const SalesPage = lazy(() => import('./pages/sales/Sales.page'))
 const CustomerPage = lazy(() => import('./pages/customer/Customer.page'))
 const EmployeePage = lazy(() => import('./pages/employee/Employee.page'))
-const LocalPage = lazy(() => import('./pages/local/Local.page'))
+const StorePage = lazy(() => import('./pages/store/Store.page'))
 
 const App = () => {
   return (
@@ -27,7 +27,7 @@ const App = () => {
             <Route path={APP_ROUTER.SALES} element={<SalesPage />} />
             <Route path={APP_ROUTER.CUSTOMER} element={<CustomerPage />} />
             <Route path={APP_ROUTER.EMPLOYEE} element={<EmployeePage />} />
-            <Route path={APP_ROUTER.STORES} element={<LocalPage />} />
+            <Route path={APP_ROUTER.STORES} element={<StorePage />} />
           </Route>
         </Routes>
       </Suspense>

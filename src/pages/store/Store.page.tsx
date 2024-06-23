@@ -5,7 +5,7 @@ import { Header, TableView, CardView } from './sections'
 import useViewModal from './hooks/useViewModal'
 import { Store } from '@/model/Store.model'
 
-const LocalPage = () => {
+const StorePage = () => {
   const [isCardView, setIsCardView] = useState(false)
   const { data, isLoading, isSuccess } = useGetAllStores()
   const { ViewModalContainer, openModal } = useViewModal()
@@ -33,4 +33,4 @@ const LocalPage = () => {
   )
 }
 
-export default LocalPage
+export default StorePage

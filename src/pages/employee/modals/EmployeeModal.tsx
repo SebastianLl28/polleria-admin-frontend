@@ -34,7 +34,11 @@ const EmployeeModal = ({ isOpen, setIsOpen, user }: EmployeeModalProps) => {
             </div>
             <div className='flex items-center gap-2'>
               <p>Estado: </p>
-              <Badge variant={user?.status ? 'success' : 'destructive'} size='lg'>
+              <Badge
+                variant={user?.status ? 'success' : 'destructive'}
+                size='lg'
+                className='!mt-0'
+              >
                 {user?.status ? 'Activo' : 'Inactivo'}
               </Badge>
             </div>
