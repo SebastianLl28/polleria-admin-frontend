@@ -32,6 +32,7 @@ export interface IActions<T> {
     | 'secondary'
     | 'ghost'
     | 'warning'
+    | 'success'
     | null
     | undefined
 }
