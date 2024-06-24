@@ -32,24 +32,22 @@ const useModal = () => {
     setUser(null)
   }
 
-  const { mutate: mutatePost } = usePostUser()
   // add user
+  const { mutate: mutatePost } = usePostUser()
   const createUser = (user: Omit<User, 'id' | 'password'>) => {
     mutatePost(user)
   }
 
-  const { mutate: mutatePut } = usePutUser()
   // edit user
+  const { mutate: mutatePut } = usePutUser()
   const editUser = (user: Omit<User, 'password'>) => {
     mutatePut(user)
   }
 
-  // delete user
-
   const ModalView = (
     <EmployeeModal
       isOpen={isOpenModal}
-      close={closeModal}
+      closeModal={closeModal}
       user={user}
       modalType={modalType}
       changeToEdit={() => setModalType('edit')}

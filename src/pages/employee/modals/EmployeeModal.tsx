@@ -17,10 +17,11 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { User } from '@/model/User.model'
 import Input from '@/components/Input.component'
 import { EmployeeSchema, TEmployeeSchema } from '../schema/employee.schema'
+import useConfirmationModal from '@/hooks/useConfirmationModal'
 
 interface EmployeeModalProps {
   isOpen: boolean
-  close: (isOpen: boolean) => void
+  closeModal: (isOpen: boolean) => void
   user: Omit<User, 'password'> | null
   modalType: 'edit' | 'view' | 'add'
   changeToEdit: () => void
@@ -31,7 +32,7 @@ interface EmployeeModalProps {
 
 const EmployeeModal = ({
   isOpen,
-  close,
+  closeModal,
   user,
   modalType,
   changeToEdit,
@@ -45,30 +46,49 @@ const EmployeeModal = ({
     setValue,
     control,
     handleSubmit,
-    reset
+    reset,
+    getValues,
+    clearErrors
   } = useForm<TEmployeeSchema>({
     resolver: zodResolver(EmployeeSchema)
   })
 
   useEffect(() => {
+    reset()
+    clearErrors()
     if (user) {
       setValue('fullname', user.fullname)
       setValue('username', user.username)
       setValue('status', user.status)
     }
-  }, [user, setValue, modalType])
+  }, [user, setValue, modalType, reset, clearErrors])
+
+  const close = (state: boolean) => {
+    closeModal(state)
+    reset()
+    clearErrors()
+  }
+
+  const { ModalConfirmation, openModalConfirmation } = useConfirmationModal({
+    title: '¿Estás seguro que deseas editar este empleado?',
+    description: 'Al editar este empleado se actualizarán los datos en la base de datos.',
+    actionConfirm: () => {
+      if (!user) return
+      editUser({ id: user?.id, ...getValues() })
+      close(false)
+    },
+    variant: 'warning',
+    textConfirm: 'Editar'
+  })
 
   const handleOnSubmit = (employee: TEmployeeSchema) => {
     if (modalType === 'edit' && user) {
-      editUser({ id: user.id, ...employee })
-      close(false)
-      reset()
+      openModalConfirmation()
     }
     if (modalType === 'add') {
       // TODO: Eliminar el password and "as" keyboard cuando se agregue la funcionalidad de autogenerado por el backend
       createUser({ ...employee, password: '123456789' } as Omit<User, 'password' | 'id'>)
       close(false)
-      reset()
     }
   }
 
@@ -140,26 +160,31 @@ const EmployeeModal = ({
               {modalType === 'edit' ? (
                 <Eye className='cursor-pointer text-success' />
               ) : (
-                <PencilIcon className='cursor-pointer text-warning' />
+                <PencilIcon className='text-warning cursor-pointer' />
               )}
             </Button>
           )}
           <AlertDialogFooter>
             {modalType === 'add' && (
               <>
-                <AlertDialogAction>Cancelar</AlertDialogAction>
+                <Button variant='outline' onClick={() => close(false)} type='button'>
+                  Cancelar
+                </Button>
                 <Button type='submit'>Agregar</Button>
               </>
             )}
             {modalType === 'edit' && (
               <>
-                <AlertDialogAction>Cancelar</AlertDialogAction>
+                <Button variant='outline' onClick={() => close(false)} type='button'>
+                  Cancelar
+                </Button>
                 <Button type='submit'>Actualizar</Button>
               </>
             )}
             {modalType === 'view' && <AlertDialogAction>Cerrar</AlertDialogAction>}
           </AlertDialogFooter>
         </form>
+        <ModalConfirmation />
       </AlertDialogContent>
     </AlertDialog>
   )
