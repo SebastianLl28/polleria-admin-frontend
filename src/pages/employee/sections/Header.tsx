@@ -1,4 +1,4 @@
-import ButtonCardView from '@/components/CardView.component'
+import { FolderUp, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -8,19 +8,20 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { useAppDispatch, useAppSelector } from '@/hooks/redux.hook'
 import { generatePdf } from '@/lib/generatePdf'
-import { User } from '@/model/User.model'
 import { setOrder, setSearch } from '@/store/employeeFilterSlice.store'
-import { FolderUp } from 'lucide-react'
+import ButtonCardView from '@/components/CardView.component'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux.hook'
+import { User } from '@/model/User.model'
 
 interface HeaderProps {
   isCardView: boolean
   setIsCardView: (state: boolean) => void
   data: Omit<User, 'password'>[] | undefined
+  openAddModal: () => void
 }
 
-const Header = ({ isCardView, setIsCardView, data }: HeaderProps) => {
+const Header = ({ isCardView, setIsCardView, data, openAddModal }: HeaderProps) => {
   const { order, search } = useAppSelector(state => state.employeeFilter)
   const dispatch = useAppDispatch()
 
@@ -63,6 +64,10 @@ const Header = ({ isCardView, setIsCardView, data }: HeaderProps) => {
             <SelectItem value='INACTIVE'>Inactivos</SelectItem>
           </SelectContent>
         </Select>
+        <Button onClick={openAddModal}>
+          <Plus size={16} className='mr-2' />
+          Agregar
+        </Button>
         <Button
           className='ml-4 space-x-2'
           type='button'

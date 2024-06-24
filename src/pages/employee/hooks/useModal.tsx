@@ -5,43 +5,48 @@ import { EmployeeModal } from '../modals'
 const useModal = () => {
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [user, setUser] = useState<null | Omit<User, 'password'>>(null)
-  const [isEdit, setIsEdit] = useState<boolean>(false)
+  // const [isEdit, setIsEdit] = useState<boolean>(false)
+  const [modalType, setModalType] = useState<'edit' | 'view' | 'add'>('view')
 
-  const handleOpen = (user: Omit<User, 'password'>) => {
+  const handleOpenView = (user: Omit<User, 'password'>) => {
+    setModalType('view')
     setUser(user)
     setIsOpenModal(true)
-  }
-
-  const toggleEdit = () => {
-    setIsEdit(edit => !edit)
-  }
-
-  const closeModal = (open: boolean) => {
-    setIsOpenModal(open)
-    setIsEdit(false)
-    setUser(null)
   }
 
   const handleOpenEdit = (user: Omit<User, 'password'>) => {
     setUser(user)
-    setIsEdit(true)
+    setModalType('edit')
     setIsOpenModal(true)
+  }
+
+  const handleOpenAdd = () => {
+    setUser(null)
+    setModalType('add')
+    setIsOpenModal(true)
+  }
+
+  const closeModal = (open: boolean) => {
+    setIsOpenModal(open)
+    setUser(null)
   }
 
   const ModalView = (
     <EmployeeModal
       isOpen={isOpenModal}
-      setIsOpen={closeModal}
+      close={closeModal}
       user={user}
-      isEdit={isEdit}
-      setIsEdit={toggleEdit}
+      modalType={modalType}
+      changeToEdit={() => setModalType('edit')}
+      changeToView={() => setModalType('view')}
     />
   )
 
   return {
-    handleOpen,
+    handleOpenView,
     ModalView,
-    handleOpenEdit
+    handleOpenEdit,
+    handleOpenAdd
   }
 }
 

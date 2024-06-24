@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import { IActions } from '@/components/table'
 import { useDeleteUser, useGetAllUsers } from '@/hooks/user.hook'
+import { User } from '@/model/User.model'
 import { Header, CardsView, TableView } from './sections'
 import { useModal } from './hooks'
-import { User } from '@/model/User.model'
 
 const EmployeePage = () => {
   const { data, isLoading, isSuccess } = useGetAllUsers()
   const [isCardView, setIsCardView] = useState(false)
   const { mutate } = useDeleteUser()
 
-  const { handleOpen, ModalView, handleOpenEdit } = useModal()
+  const { handleOpenView, ModalView, handleOpenEdit, handleOpenAdd } = useModal()
 
   const handleDeleteUser = (user: Omit<User, 'password'>) => {
     mutate(user.id)
@@ -19,7 +19,7 @@ const EmployeePage = () => {
   const actions: IActions<Omit<User, 'password'>>[] = [
     {
       name: 'Ver',
-      action: handleOpen
+      action: handleOpenView
     },
     {
       name: 'Editar',
@@ -35,7 +35,12 @@ const EmployeePage = () => {
 
   return (
     <main className='space-y-12 p-12'>
-      <Header isCardView={isCardView} setIsCardView={setIsCardView} data={data} />
+      <Header
+        isCardView={isCardView}
+        setIsCardView={setIsCardView}
+        data={data}
+        openAddModal={handleOpenAdd}
+      />
       {!isLoading &&
         isSuccess &&
         data &&

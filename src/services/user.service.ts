@@ -7,6 +7,9 @@ interface UserService extends Omit<User, 'password'> {}
 export const getAllUsers = async () =>
   await baseApi.get<UserService[]>('/users').then(res => res.data)
 
+export const postUser = async (user: Omit<UserService, 'id'>) =>
+  await baseApi.post('/users', user)
+
 export const putUser = async (user: UserService) =>
   await baseApi.put(`/users/${user.id}`, user)
 

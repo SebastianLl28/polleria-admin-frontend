@@ -1,4 +1,7 @@
-import Input from '@/components/Input.component'
+import { useEffect } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import { Eye, PencilIcon } from 'lucide-react'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,36 +13,36 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { User } from '@/model/User.model'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Eye, PencilIcon } from 'lucide-react'
-import { useForm, Controller } from 'react-hook-form'
-import { EmployeeSchema, TEmployeeSchema } from '../schema/employee.schema'
-import { useEffect } from 'react'
 import { Checkbox } from '@/components/ui/checkbox'
-import { usePutUser } from '@/hooks/user.hook'
+import { User } from '@/model/User.model'
+import Input from '@/components/Input.component'
+import { usePostUser, usePutUser } from '@/hooks/user.hook'
+import { EmployeeSchema, TEmployeeSchema } from '../schema/employee.schema'
 
 interface EmployeeModalProps {
   isOpen: boolean
-  setIsOpen: (isOpen: boolean) => void
+  close: (isOpen: boolean) => void
   user: Omit<User, 'password'> | null
-  isEdit: boolean
-  setIsEdit: () => void
+  modalType: 'edit' | 'view' | 'add'
+  changeToEdit: () => void
+  changeToView: () => void
 }
 
 const EmployeeModal = ({
   isOpen,
-  setIsOpen,
+  close,
   user,
-  isEdit,
-  setIsEdit
+  modalType,
+  changeToEdit,
+  changeToView
 }: EmployeeModalProps) => {
   const {
     register,
     formState: { errors },
     setValue,
     control,
-    handleSubmit
+    handleSubmit,
+    reset
   } = useForm<TEmployeeSchema>({
     resolver: zodResolver(EmployeeSchema)
   })
@@ -50,86 +53,111 @@ const EmployeeModal = ({
       setValue('username', user.username)
       setValue('status', user.status)
     }
-  }, [user, setValue, isEdit])
+  }, [user, setValue, modalType])
 
   const { mutate } = usePutUser()
+  const { mutate: mutatePost } = usePostUser()
 
   const handleOnSubmit = (employee: TEmployeeSchema) => {
-    if (isEdit && user) {
+    if (modalType === 'edit' && user) {
       mutate({ id: user.id, ...employee })
-      setIsOpen(false)
+      close(false)
+      reset()
+    }
+    if (modalType === 'add') {
+      // TODO: Eliminar el password and "as" keyboard cuando se agregue la funcionalidad de autogenerado por el backend
+      mutatePost({ ...employee, password: '123456789' } as Omit<User, 'password' | 'id'>)
+      close(false)
+      reset()
     }
   }
 
+  const handleChange = () => {
+    if (modalType === 'edit') changeToView()
+    if (modalType === 'view') changeToEdit()
+  }
+
   return (
-    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+    <AlertDialog open={isOpen} onOpenChange={close}>
       <AlertDialogContent className='absolute max-w-md'>
         <form onSubmit={handleSubmit(handleOnSubmit)}>
           <AlertDialogHeader>
             <AlertDialogTitle className='text-center'>
-              {isEdit ? 'Editar Empleado' : 'Empleado'}
+              {modalType === 'view' && 'Empleado'}
+              {modalType === 'edit' && 'Editar Empleado'}
+              {modalType === 'add' && 'Agregar Empleado'}
             </AlertDialogTitle>
             <AlertDialogDescription className='text-primary'>
               <Input
                 hookForm={register('fullname')}
                 label='Nombre'
                 error={errors.fullname}
-                readOnly={!isEdit}
+                readOnly={modalType === 'view'}
               />
               <Input
                 hookForm={register('username')}
                 label='Nombre de Usuario'
                 error={errors.username}
-                readOnly={!isEdit}
+                readOnly={modalType === 'view'}
               />
-              <div className='flex items-center gap-2'>
-                <p>Estado: </p>
-                {isEdit ? (
-                  <Controller
-                    name='status'
-                    control={control}
-                    render={({ field }) => (
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={checked => {
-                          field.onChange(checked)
-                        }}
-                      />
-                    )}
-                  />
-                ) : (
-                  <Badge
-                    variant={user?.status ? 'success' : 'destructive'}
-                    size='lg'
-                    className='!mt-0'
-                  >
-                    {user?.status ? 'Activo' : 'Inactivo'}
-                  </Badge>
-                )}
-              </div>
+              {modalType !== 'add' && (
+                <div className='flex items-center gap-2'>
+                  <p>Estado: </p>
+                  {modalType !== 'view' ? (
+                    <Controller
+                      name='status'
+                      control={control}
+                      render={({ field }) => (
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={checked => {
+                            field.onChange(checked)
+                          }}
+                        />
+                      )}
+                    />
+                  ) : (
+                    <Badge
+                      variant={user?.status ? 'success' : 'destructive'}
+                      size='lg'
+                      className='!mt-0'
+                    >
+                      {user?.status ? 'Activo' : 'Inactivo'}
+                    </Badge>
+                  )}
+                </div>
+              )}
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <Button
-            variant='ghost'
-            className='absolute right-3 top-2 w-fit rounded-full px-2'
-            type='button'
-            onClick={setIsEdit}
-          >
-            {isEdit ? (
-              <Eye className='cursor-pointer text-success' />
-            ) : (
-              <PencilIcon className='text-warning cursor-pointer' />
-            )}
-          </Button>
+
+          {modalType !== 'add' && (
+            <Button
+              variant='ghost'
+              className='absolute right-3 top-2 w-fit rounded-full px-2'
+              type='button'
+              onClick={handleChange}
+            >
+              {modalType === 'edit' ? (
+                <Eye className='cursor-pointer text-success' />
+              ) : (
+                <PencilIcon className='text-warning cursor-pointer' />
+              )}
+            </Button>
+          )}
           <AlertDialogFooter>
-            {isEdit ? (
+            {modalType === 'add' && (
+              <>
+                <AlertDialogAction>Cancelar</AlertDialogAction>
+                <Button type='submit'>Agregar</Button>
+              </>
+            )}
+            {modalType === 'edit' && (
               <>
                 <AlertDialogAction>Cancelar</AlertDialogAction>
                 <Button type='submit'>Actualizar</Button>
               </>
-            ) : (
-              <AlertDialogAction>Cerrar</AlertDialogAction>
             )}
+            {modalType === 'view' && <AlertDialogAction>Cerrar</AlertDialogAction>}
           </AlertDialogFooter>
         </form>
       </AlertDialogContent>
