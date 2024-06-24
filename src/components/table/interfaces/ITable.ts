@@ -31,6 +31,7 @@ export interface IActions<T> {
     | 'outline'
     | 'secondary'
     | 'ghost'
+    | 'warning'
     | null
     | undefined
 }
