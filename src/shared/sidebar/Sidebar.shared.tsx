@@ -7,7 +7,7 @@ const Sidebar = () => {
   return (
     <aside
       id='sidebar'
-      className='left-0 top-0 z-40 h-screen w-64 transition-transform'
+      className='sticky bottom-0 left-0 top-0  z-40 max-h-screen min-h-screen w-64 bg-white transition-transform'
       aria-label='Sidebar'
     >
       <div className='flex h-full flex-col overflow-y-auto border-r border-slate-200 px-3 py-4 dark:border-slate-700 dark:bg-slate-900'>
