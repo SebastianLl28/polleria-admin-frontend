@@ -1,20 +1,18 @@
 import { useState } from 'react'
 import { IActions } from '@/components/table'
-import { useDeleteUser, useGetAllUsers } from '@/hooks/user.hook'
+import { useGetAllUsers } from '@/hooks/user.hook'
 import { User } from '@/model/User.model'
 import { Header, CardsView, TableView } from './sections'
 import { useModal } from './hooks'
+import useConfirmationModal from './hooks/useConfirmationModal'
 
 const EmployeePage = () => {
   const { data, isLoading, isSuccess } = useGetAllUsers()
   const [isCardView, setIsCardView] = useState(false)
-  const { mutate } = useDeleteUser()
 
   const { handleOpenView, ModalView, handleOpenEdit, handleOpenAdd } = useModal()
 
-  const handleDeleteUser = (user: Omit<User, 'password'>) => {
-    mutate(user.id)
-  }
+  const { ConfirmationModal, openConfirmationModal } = useConfirmationModal()
 
   const actions: IActions<Omit<User, 'password'>>[] = [
     {
@@ -28,7 +26,7 @@ const EmployeePage = () => {
     },
     {
       name: 'Eliminar',
-      action: handleDeleteUser,
+      action: user => openConfirmationModal(user.id),
       variant: 'destructive'
     }
   ]
@@ -52,6 +50,7 @@ const EmployeePage = () => {
         ))}
       {ModalView}
       {/* <ModalView /> */}
+      <ConfirmationModal />
     </main>
   )
 }
