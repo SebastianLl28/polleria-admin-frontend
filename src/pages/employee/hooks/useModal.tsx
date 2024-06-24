@@ -1,6 +1,7 @@
 import { User } from '@/model/User.model'
 import { useState } from 'react'
 import { EmployeeModal } from '../modals'
+import { usePostUser, usePutUser } from '@/hooks/user.hook'
 
 const useModal = () => {
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -31,6 +32,20 @@ const useModal = () => {
     setUser(null)
   }
 
+  const { mutate: mutatePost } = usePostUser()
+  // add user
+  const createUser = (user: Omit<User, 'id' | 'password'>) => {
+    mutatePost(user)
+  }
+
+  const { mutate: mutatePut } = usePutUser()
+  // edit user
+  const editUser = (user: Omit<User, 'password'>) => {
+    mutatePut(user)
+  }
+
+  // delete user
+
   const ModalView = (
     <EmployeeModal
       isOpen={isOpenModal}
@@ -39,6 +54,8 @@ const useModal = () => {
       modalType={modalType}
       changeToEdit={() => setModalType('edit')}
       changeToView={() => setModalType('view')}
+      createUser={createUser}
+      editUser={editUser}
     />
   )
 

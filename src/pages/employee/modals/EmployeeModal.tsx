@@ -16,7 +16,6 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { User } from '@/model/User.model'
 import Input from '@/components/Input.component'
-import { usePostUser, usePutUser } from '@/hooks/user.hook'
 import { EmployeeSchema, TEmployeeSchema } from '../schema/employee.schema'
 
 interface EmployeeModalProps {
@@ -26,6 +25,8 @@ interface EmployeeModalProps {
   modalType: 'edit' | 'view' | 'add'
   changeToEdit: () => void
   changeToView: () => void
+  createUser: (user: Omit<User, 'id' | 'password'>) => void
+  editUser: (user: Omit<User, 'password'>) => void
 }
 
 const EmployeeModal = ({
@@ -34,7 +35,9 @@ const EmployeeModal = ({
   user,
   modalType,
   changeToEdit,
-  changeToView
+  changeToView,
+  createUser,
+  editUser
 }: EmployeeModalProps) => {
   const {
     register,
@@ -55,18 +58,15 @@ const EmployeeModal = ({
     }
   }, [user, setValue, modalType])
 
-  const { mutate } = usePutUser()
-  const { mutate: mutatePost } = usePostUser()
-
   const handleOnSubmit = (employee: TEmployeeSchema) => {
     if (modalType === 'edit' && user) {
-      mutate({ id: user.id, ...employee })
+      editUser({ id: user.id, ...employee })
       close(false)
       reset()
     }
     if (modalType === 'add') {
       // TODO: Eliminar el password and "as" keyboard cuando se agregue la funcionalidad de autogenerado por el backend
-      mutatePost({ ...employee, password: '123456789' } as Omit<User, 'password' | 'id'>)
+      createUser({ ...employee, password: '123456789' } as Omit<User, 'password' | 'id'>)
       close(false)
       reset()
     }
@@ -140,7 +140,7 @@ const EmployeeModal = ({
               {modalType === 'edit' ? (
                 <Eye className='cursor-pointer text-success' />
               ) : (
-                <PencilIcon className='cursor-pointer text-warning' />
+                <PencilIcon className='text-warning cursor-pointer' />
               )}
             </Button>
           )}
