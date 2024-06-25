@@ -86,6 +86,9 @@ importers:
       react-redux:
         specifier: ^9.1.2
         version: 9.1.2(@types/react@18.2.79)(react@18.2.0)(redux@5.0.1)
+      react-responsive-pagination:
+        specifier: ^2.6.0
+        version: 2.6.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react-router-dom:
         specifier: ^6.22.3
         version: 6.22.3(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -104,6 +107,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.3)
+      use-debounce:
+        specifier: ^10.0.1
+        version: 10.0.1(react@18.2.0)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -2050,6 +2056,12 @@ packages:
       '@types/react':
         optional: true
 
+  react-responsive-pagination@2.6.0:
+    resolution: {integrity: sha512-KZsbS7imwnYsRIolxGaAVVHbJXYWULky9UJY4+WoKLZCWl16tkWER+zBMu6kq2+VjAbZTo0lTYOpohom7c7x5Q==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+
   react-router-dom@6.22.3:
     resolution: {integrity: sha512-7ZILI7HjcE+p31oQvwbokjk6OA/bnFxrhJ19n82Ex9Ph8fNAq+Hm/7KchpMGlTgWhUxRHMMCut+vEtNpWpowKw==}
     engines: {node: '>=14.0.0'}
@@ -2326,6 +2338,12 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  use-debounce@10.0.1:
+    resolution: {integrity: sha512-0uUXjOfm44e6z4LZ/woZvkM8FwV1wiuoB6xnrrOmeAEjRDDzTLQNRFtYHvqUsJdrz1X37j0rVGIVp144GLHGKg==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      react: '>=16.8.0'
 
   use-isomorphic-layout-effect@1.1.2:
     resolution: {integrity: sha512-49L8yCO3iGT/ZF9QttjwLF/ZD9Iwto5LnH5LmEdk/6cFmXddqi2ulF0edxTwjj+7mqvpVVGQWvbXZdn32wRSHA==}
@@ -4191,6 +4209,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.2.79
 
+  react-responsive-pagination@2.6.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+
   react-router-dom@6.22.3(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
       '@remix-run/router': 1.15.3
@@ -4499,6 +4523,10 @@ snapshots:
       tslib: 2.6.2
     optionalDependencies:
       '@types/react': 18.2.79
+
+  use-debounce@10.0.1(react@18.2.0):
+    dependencies:
+      react: 18.2.0
 
   use-isomorphic-layout-effect@1.1.2(@types/react@18.2.79)(react@18.2.0):
     dependencies:
