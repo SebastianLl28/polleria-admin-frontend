@@ -1,20 +1,16 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
-import { IHeader } from '../../interfaces/ITable'
+import { useMemo } from 'react'
+import { CustomerFilterState } from '@/store/customerFilterSlice.store'
 import HeaderOrder from './HeaderOrder'
 import HeaderBasic from './HeaderBasic'
+import { IHeader } from '../../interfaces/ITable'
 
 interface HeaderProps<T> {
   header: IHeader<T>[]
+  filter: CustomerFilterState
+  setFilter: (filter: Partial<CustomerFilterState>) => void
 }
 
-interface Order {
-  index: number
-  order: number
-}
-
-const Header = <T,>({ header }: HeaderProps<T>) => {
-  const orders = useRef([null, 'ASC', 'DESC'])
-
+const Header = <T,>({ header, filter, setFilter }: HeaderProps<T>) => {
   const gridTemplateColumns = useMemo(
     () =>
       header
@@ -24,41 +20,37 @@ const Header = <T,>({ header }: HeaderProps<T>) => {
     [header]
   )
 
-  const [order, setOrder] = useState<Order[]>(
-    header.map((_, index) => ({ index, order: 0 }))
-  )
-
-  const getNextOrder = (currentOrder: number) => {
-    return currentOrder === 2 ? 0 : currentOrder + 1
+  /**
+   * Get next order
+   * @description as there are only 3 states, the next state is 0 if the current state is 2, otherwise it is the current state + 1
+   * @param currentOrder number - current order
+   * @returns number - next order
+   */
+  const getNextOrder = (currentOrder: string | null): null | 'asc' | 'desc' => {
+    if (currentOrder === null) return 'asc'
+    if (currentOrder === 'asc') return 'desc'
+    if (currentOrder === 'desc') return null
+    return null
   }
 
   const handleClick = (index: number) => {
-    const nextOrder = getNextOrder(order.find(item => item.index === index)?.order || 0)
-    setOrder(prevOrder => {
-      const newOrder = [...prevOrder]
-      const indexOrder = newOrder.findIndex(item => item.index === index)
-      newOrder[indexOrder] = { index, order: nextOrder }
-      return newOrder
+    if (filter.orderBy && filter.orderBy.key === header[index].key) {
+      setFilter({
+        page: 0,
+        orderBy: {
+          key: header[index].key,
+          order: getNextOrder(filter.orderBy?.order)
+        }
+      })
+      return
+    }
+    setFilter({
+      page: 0,
+      orderBy: {
+        key: header[index].key,
+        order: 'asc'
+      }
     })
-  }
-
-  const findOrder = useCallback(
-    (index: number) => {
-      return order.find(item => item.index === index)?.order || 0
-    },
-    [order]
-  )
-
-  const onSortAscDefault = () => {
-    throw new Error('onSortAsc is not defined')
-  }
-
-  const onSortDescDefault = () => {
-    throw new Error('onSortDesc is not defined')
-  }
-
-  const onSortRemoveDefault = () => {
-    throw new Error('onSortRemove is not defined')
   }
 
   return (
@@ -68,21 +60,16 @@ const Header = <T,>({ header }: HeaderProps<T>) => {
         style={{ gridTemplateColumns }}
       >
         {header.map(
-          (
-            { label, overflow, orderColumn, onSortAsc, onSortDesc, onSortRemove },
-            index
-          ) =>
+          ({ label, overflow, orderColumn, key }, index) =>
             overflow !== 'hidden' && (
               <th key={index} className={`px-4 py-2 text-start text-lg`}>
                 {orderColumn ? (
                   <HeaderOrder
                     label={label}
                     index={index}
-                    order={orders.current[findOrder(index)] as 'ASC' | 'DESC' | null}
+                    filter={filter}
                     onClick={handleClick}
-                    onSortAsc={onSortAsc || onSortAscDefault}
-                    onSortDesc={onSortDesc || onSortDescDefault}
-                    onSortRemove={onSortRemove || onSortRemoveDefault}
+                    keyString={key}
                   />
                 ) : (
                   <HeaderBasic label={label} />

@@ -1,29 +1,17 @@
+import { CustomerFilterState } from '@/store/customerFilterSlice.store'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 
 interface HeaderProps {
   label: string
   onClick: (index: number) => void
   index: number
-  order: 'ASC' | 'DESC' | null
-  onSortAsc: () => void
-  onSortDesc: () => void
-  onSortRemove: () => void
+  filter: CustomerFilterState
+  keyString: string
 }
 
-const HeaderOrder = ({
-  label,
-  onClick,
-  index,
-  order,
-  onSortAsc,
-  onSortDesc,
-  onSortRemove
-}: HeaderProps) => {
+const HeaderOrder = ({ label, index, onClick, filter, keyString }: HeaderProps) => {
   const handleClick = (index: number) => {
     onClick(index)
-    if (order === 'ASC') onSortDesc()
-    if (order === 'DESC') onSortRemove()
-    if (order === null) onSortAsc()
   }
 
   return (
@@ -35,11 +23,19 @@ const HeaderOrder = ({
       <div className='flex flex-col'>
         <ChevronUp
           size={15}
-          className={order === 'ASC' ? 'text-white' : 'text-gray-500'}
+          className={
+            keyString === filter.orderBy?.key && filter.orderBy?.order === 'asc'
+              ? 'text-white'
+              : 'text-gray-500'
+          }
         />
         <ChevronDown
           size={15}
-          className={order === 'DESC' ? 'text-white' : 'text-gray-500'}
+          className={
+            keyString === filter.orderBy?.key && filter.orderBy?.order === 'desc'
+              ? 'text-white'
+              : 'text-gray-500'
+          }
         />
       </div>
     </button>

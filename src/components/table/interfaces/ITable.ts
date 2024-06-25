@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Pagination } from '@/model/Pagination.model'
+import { CustomerFilterState } from '@/store/customerFilterSlice.store'
 
 export interface ITable<T> {
   header: IHeader<T>[]
   data: Pagination<T> | T[] | any[]
   actions: IActions<T>[]
   rowClick?: (item: T) => void
+  filter: CustomerFilterState
+  setFilter: (filter: Partial<CustomerFilterState>) => void
 }
 
 export interface IHeader<T> {
@@ -16,9 +19,6 @@ export interface IHeader<T> {
   size: number
   action?: (item: T) => void
   orderColumn?: boolean
-  onSortAsc?: () => void
-  onSortDesc?: () => void
-  onSortRemove?: () => void
 }
 
 export interface IActions<T> {
