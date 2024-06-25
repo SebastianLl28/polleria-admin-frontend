@@ -1,36 +1,49 @@
-import { CustomerStatus } from '@/model/Customer.model'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { CustomerStatus } from '@/model/Customer.model'
 
-interface CustomerFilterState {
-  search: string
-  orderBy: undefined | keyof typeof CustomerStatus
+export interface CustomerFilterState {
+  name: string
+  filterBy: undefined | keyof typeof CustomerStatus
+  page: number
+  size: number
+  orderBy: {
+    key: string
+    order: 'asc' | 'desc' | null
+  } | null
 }
 
 const initialState: CustomerFilterState = {
-  search: '',
-  orderBy: undefined
+  name: '',
+  filterBy: undefined,
+  page: 0,
+  size: 5,
+  orderBy: null
 }
 
 const customerFilterSlice = createSlice({
   name: 'customerFilter',
   initialState,
   reducers: {
-    setSearch: (state, action: PayloadAction<string>) => {
-      state.search = action.payload
+    setName: (state, action: PayloadAction<string>) => {
+      state.name = action.payload
     },
-    setOrderBy: (state, action: PayloadAction<keyof typeof CustomerStatus>) => {
-      state.orderBy = action.payload
+    setFilterBy: (state, action: PayloadAction<keyof typeof CustomerStatus>) => {
+      state.filterBy = action.payload
     },
     clearFilter: state => {
-      state.search = ''
-      state.orderBy = undefined
+      state.name = ''
+      state.filterBy = undefined
+    },
+    setFilter: (state, action: PayloadAction<Partial<CustomerFilterState>>) => {
+      // state = action.payload //! ❌ No se puede hacer esto
+      // state = { ...state, ...action.payload } //! ❌ No se puede hacer esto
+      // return { ...state, ...action.payload } // ✅
+      Object.assign(state, action.payload) // ✅
     }
   }
 })
 
-export const { setSearch, setOrderBy, clearFilter } = customerFilterSlice.actions
-
-export const selectFilter = (state: { customerFilter: CustomerFilterState }) =>
-  state.customerFilter.search
+export const { setName, setFilterBy, clearFilter, setFilter } =
+  customerFilterSlice.actions
 
 export default customerFilterSlice.reducer

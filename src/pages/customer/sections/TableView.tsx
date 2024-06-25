@@ -1,6 +1,8 @@
 import { IActions, IHeader, Table } from '@/components/table'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux.hook'
 import { Customer } from '@/model/Customer.model'
 import { Pagination } from '@/model/Pagination.model'
+import { CustomerFilterState, setFilter } from '@/store/customerFilterSlice.store'
 
 interface TableViewProps {
   data: Pagination<Customer>
@@ -20,26 +22,14 @@ const TableView = ({ data, actions }: TableViewProps) => {
       label: 'Nombre',
       overflow: 'visible',
       size: 2.5,
-      orderColumn: true,
-      onSortAsc: () =>
-        console.log('se ejecutó la función para ordenar ascendentemente el nombre'),
-      onSortDesc: () =>
-        console.log('se ejecutó la función para ordenar descendentemente el nombre'),
-      onSortRemove: () =>
-        console.log('se ejecutó la función para remover el orden del nombre')
+      orderColumn: true
     },
     {
       key: 'lastname',
       label: 'Apellido',
       overflow: 'visible',
       size: 2.5,
-      orderColumn: true,
-      onSortAsc: () =>
-        console.log('se ejecutó la función para ordenar ascendentemente el apellido'),
-      onSortDesc: () =>
-        console.log('se ejecutó la función para ordenar descendentemente el apellido'),
-      onSortRemove: () =>
-        console.log('se ejecutó la función para remover el orden del apellido')
+      orderColumn: true
     },
     {
       key: 'email',
@@ -78,7 +68,21 @@ const TableView = ({ data, actions }: TableViewProps) => {
     }
   ]
 
-  return <Table header={headers} data={data} actions={actions} />
+  const customerFilter = useAppSelector(state => state.customerFilter)
+  console.log(customerFilter)
+  const dispatch = useAppDispatch()
+
+  return (
+    <Table
+      header={headers}
+      data={data}
+      actions={actions}
+      filter={customerFilter}
+      setFilter={(customer: Partial<CustomerFilterState>) =>
+        dispatch(setFilter(customer))
+      }
+    />
+  )
 }
 
 export default TableView

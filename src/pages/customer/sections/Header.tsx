@@ -1,5 +1,6 @@
 import { FolderUp, Grip } from 'lucide-react'
 import { generatePdf } from '@/lib/generatePdf'
+import { useDebouncedCallback } from 'use-debounce'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -12,7 +13,7 @@ import { Customer, CustomerStatus } from '@/model/Customer.model'
 import { useDialog } from '../hook'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux.hook'
 import { Input } from '@/components/ui/input'
-import { setOrderBy, setSearch } from '@/store/customerFilterSlice.store'
+import { setFilterBy, setName } from '@/store/customerFilterSlice.store'
 
 interface HeaderProps {
   isCardView: boolean
@@ -41,8 +42,12 @@ const Header = ({ isCardView, setIsCardView, data }: HeaderProps) => {
     generatePdf(dataExport, 'customers')
   }
 
-  const { search, orderBy } = useAppSelector(state => state.customerFilter)
+  const { filterBy } = useAppSelector(state => state.customerFilter)
   const dipatch = useAppDispatch()
+
+  const debounced = useDebouncedCallback(value => {
+    dipatch(setName(value))
+  }, 500)
 
   return (
     <section className='flex w-full items-center justify-between'>
@@ -59,13 +64,12 @@ const Header = ({ isCardView, setIsCardView, data }: HeaderProps) => {
       </div>
       <div className='flex items-center space-x-4'>
         <Input
-          value={search}
           placeholder='Buscar Cliente...'
-          onChange={e => dipatch(setSearch(e.target.value))}
+          onChange={e => debounced(e.target.value)}
         />
         <Select
-          value={orderBy}
-          onValueChange={(e: keyof typeof CustomerStatus) => dipatch(setOrderBy(e))}
+          value={filterBy}
+          onValueChange={(e: keyof typeof CustomerStatus) => dipatch(setFilterBy(e))}
         >
           <SelectTrigger className='w-72'>
             <SelectValue placeholder='Filtrar por' />
