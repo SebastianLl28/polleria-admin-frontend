@@ -27,7 +27,10 @@ const customerFilterSlice = createSlice({
     setName: (state, action: PayloadAction<string>) => {
       state.name = action.payload
     },
-    setStatus: (state, action: PayloadAction<keyof typeof CustomerStatus>) => {
+    setStatus: (
+      state,
+      action: PayloadAction<keyof typeof CustomerStatus | undefined>
+    ) => {
       state.status = action.payload
     },
     clearFilter: state => {
