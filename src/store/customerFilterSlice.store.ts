@@ -3,7 +3,7 @@ import { CustomerStatus } from '@/model/Customer.model'
 
 export interface CustomerFilterState {
   name: string
-  filterBy: undefined | keyof typeof CustomerStatus
+  status: undefined | keyof typeof CustomerStatus
   page: number
   size: number
   orderBy: {
@@ -14,7 +14,7 @@ export interface CustomerFilterState {
 
 const initialState: CustomerFilterState = {
   name: '',
-  filterBy: undefined,
+  status: undefined,
   page: 0,
   size: 5,
   orderBy: null
@@ -27,12 +27,12 @@ const customerFilterSlice = createSlice({
     setName: (state, action: PayloadAction<string>) => {
       state.name = action.payload
     },
-    setFilterBy: (state, action: PayloadAction<keyof typeof CustomerStatus>) => {
-      state.filterBy = action.payload
+    setStatus: (state, action: PayloadAction<keyof typeof CustomerStatus>) => {
+      state.status = action.payload
     },
     clearFilter: state => {
       state.name = ''
-      state.filterBy = undefined
+      state.status = undefined
     },
     setFilter: (state, action: PayloadAction<Partial<CustomerFilterState>>) => {
       // state = action.payload //! ❌ No se puede hacer esto
@@ -43,7 +43,6 @@ const customerFilterSlice = createSlice({
   }
 })
 
-export const { setName, setFilterBy, clearFilter, setFilter } =
-  customerFilterSlice.actions
+export const { setName, setStatus, clearFilter, setFilter } = customerFilterSlice.actions
 
 export default customerFilterSlice.reducer

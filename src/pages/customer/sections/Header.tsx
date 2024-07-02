@@ -13,7 +13,7 @@ import { Customer, CustomerStatus } from '@/model/Customer.model'
 import { useDialog } from '../hook'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux.hook'
 import { Input } from '@/components/ui/input'
-import { setFilterBy, setName } from '@/store/customerFilterSlice.store'
+import { setStatus, setName } from '@/store/customerFilterSlice.store'
 
 interface HeaderProps {
   isCardView: boolean
@@ -42,12 +42,16 @@ const Header = ({ isCardView, setIsCardView, data }: HeaderProps) => {
     generatePdf(dataExport, 'customers')
   }
 
-  const { filterBy } = useAppSelector(state => state.customerFilter)
+  const { status: filterBy } = useAppSelector(state => state.customerFilter)
   const dipatch = useAppDispatch()
 
   const debounced = useDebouncedCallback(value => {
     dipatch(setName(value))
   }, 500)
+
+  const onChangeSelect = (e: keyof typeof CustomerStatus | 'ALL') => {
+    return e === 'ALL' ? dipatch(setStatus(undefined)) : dipatch(setStatus(e))
+  }
 
   return (
     <section className='flex w-full items-center justify-between'>
@@ -67,10 +71,7 @@ const Header = ({ isCardView, setIsCardView, data }: HeaderProps) => {
           placeholder='Buscar Cliente...'
           onChange={e => debounced(e.target.value)}
         />
-        <Select
-          value={filterBy}
-          onValueChange={(e: keyof typeof CustomerStatus) => dipatch(setFilterBy(e))}
-        >
+        <Select value={filterBy} onValueChange={onChangeSelect}>
           <SelectTrigger className='w-72'>
             <SelectValue placeholder='Filtrar por' />
           </SelectTrigger>
