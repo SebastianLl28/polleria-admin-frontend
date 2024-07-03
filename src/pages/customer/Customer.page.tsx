@@ -27,7 +27,6 @@ const CustomerPage = () => {
       {!isLoading &&
         isSuccess &&
         data &&
-        data.content.length > 0 &&
         (isCardView ? (
           <Cards data={data} actions={actions} />
         ) : (
