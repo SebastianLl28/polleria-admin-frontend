@@ -160,7 +160,7 @@ const EmployeeModal = ({
               {modalType === 'edit' ? (
                 <Eye className='cursor-pointer text-success' />
               ) : (
-                <PencilIcon className='text-warning cursor-pointer' />
+                <PencilIcon className='cursor-pointer text-warning' />
               )}
             </Button>
           )}
